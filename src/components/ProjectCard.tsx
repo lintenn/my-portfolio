@@ -1,3 +1,5 @@
+import { H3 } from "./ui/H3";
+
 interface ProjectCardProps {
   title: string;
   description: string;
@@ -12,8 +14,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   linkText,
 }) => {
   return (
-    <div className="rounded-lg bg-white p-6 shadow">
-      <h3 className="mb-2 text-xl font-semibold">{title}</h3>
+    <div className="rounded-lg border p-6 shadow">
+      <H3 className="mb-2 text-xl font-semibold">{title}</H3>
       <p className="mb-4 text-gray-600">{description}</p>
       {link && (
         <a

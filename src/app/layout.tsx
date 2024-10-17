@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,9 +35,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <main className="mx-auto max-w-3xl px-3 py-10">{children}</main>
-        <Footer />
+        <ThemeProvider attribute="class">
+          <Navbar />
+          <main className="mx-auto max-w-3xl px-3 py-10">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
