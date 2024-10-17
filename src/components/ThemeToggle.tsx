@@ -7,7 +7,8 @@ export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+    title="Toggle the page theme">
       <Sun
         size={24}
         className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"

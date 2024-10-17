@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils";
 import { Message, useChat } from "ai/react";
-import { Bot, XCircle } from "lucide-react";
+import { Bot, SendHorizonal, Trash, XCircle } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
+import { H3 } from "./ui/H3";
 
 interface AIChatBoxProps {
   open: boolean;
@@ -18,48 +20,112 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
     setMessages,
     isLoading,
     error,
-  } = useChat({
-    initialMessages: [
-      {
-        id: "1",
-        role: "assistant",
-        content: "Hi, I'm the chatbot!",
-      },
-      {
-        id: "2",
-        role: "user",
-        content: "Hi, I'm the user!",
-      },
-      {
-        id: "3",
-        role: "assistant",
-        content: `
-[Github Luis](https://github.com/lintenn)
-List:
-- Item 1
-- Item 2
-- Item 3
-`,
-      },
-    ],
-  }); // By default: useChat({api: "/api/chat"});
+  } = useChat(); // By default: useChat({api: "/api/chat"});
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    if (open) {
+      inputRef.current?.focus();
+    }
+  }, [open]);
+
+  const lastMessageIsUser = messages[messages.length - 1]?.role === "user";
 
   return (
     <div
       className={cn(
-        "bottom-0 right-0 z-50 w-full max-w-[500px] p-1 xl:right-36",
+        "bottom-0 right-0 z-50 w-full max-w-[500px] rounded-lg border bg-card p-1 xl:right-36",
         open ? "fixed" : "hidden",
       )}
     >
-      <button onClick={onClose} className="mb-1 ms-auto block">
-        <XCircle size={30} className="rounded-full bg-background" />
-      </button>
+      <div className="flex justify-between">
+        <H3>Chatbot</H3>
+        <button
+          onClick={onClose}
+          className="mb-1 ms-auto block"
+          title="Close Chatbot"
+        >
+          <XCircle size={30} className="rounded-full bg-background" />
+        </button>
+      </div>
+
       <div className="flex h-[600px] flex-col rounded border bg-background shadow-xl">
-        <div className="mt-3 h-full overflow-y-auto px-3">
+        <div className="mt-3 h-full overflow-y-auto px-3" ref={scrollRef}>
           {messages.map((message) => (
             <ChatMessage message={message} key={message.id} />
           ))}
+          {isLoading && lastMessageIsUser && (
+            <ChatMessage
+              message={{
+                id: "loading",
+                role: "assistant",
+                content: "Thinking...",
+              }}
+            />
+          )}
+          {error && (
+            <ChatMessage
+              message={{
+                id: "error",
+                role: "assistant",
+                content: "Something went wrong. Please try again!",
+              }}
+            />
+          )}
+          {!error && messages.length === 0 && (
+            <div className="mx-8 flex h-full flex-col items-center justify-center gap-3 text-center">
+              <Bot size={28} />
+              <p className="text-lg font-medium">
+                Send a message to start the AI chat!
+              </p>
+              <p>
+                You can ask the chatbot any question about me or this site,
+                don't be shy.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                You can check the Privacy Policy and how information is
+                protected and managed{" "}
+                <Link href="/privacy" className="text-primary hover:underline">
+                  here
+                </Link>
+                .
+              </p>
+            </div>
+          )}
         </div>
+        <form onSubmit={handleSubmit} className="m-3 flex gap-1">
+          <button
+            type="button"
+            className="flex w-10 flex-none items-center justify-center"
+            title="Clear chat"
+            onClick={() => setMessages([])}
+          >
+            <Trash size={24} />
+          </button>
+          <input
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Say something..."
+            className="grow rounded border bg-background px-3 py-2"
+            ref={inputRef}
+          />
+          <button
+            type="submit"
+            className="flex w-10 flex-none items-center justify-center disabled:opacity-50"
+            disabled={isLoading || input.length === 0}
+            title="Submit message"
+          >
+            <SendHorizonal size={24} />
+          </button>
+        </form>
       </div>
     </div>
   );

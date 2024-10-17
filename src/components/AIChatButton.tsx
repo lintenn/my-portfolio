@@ -9,7 +9,8 @@ export default function AIChatButton() {
 
   return (
     <>
-      <button onClick={() => steChatBoxOpen(true)}>
+      <button onClick={() => steChatBoxOpen(true)}
+        title="Open Chatbot">
         <Bot size={24} />
       </button>
       <AIChatBox open={chatBoxOpen} onClose={() => steChatBoxOpen(false)} />
