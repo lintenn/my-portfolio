@@ -35,6 +35,7 @@ export default function EmailForm() {
       setFormStatus(
         "Oops! There was a problem sending your message. Please try again.",
       );
+      console.error(error);
     }
   };
 

@@ -88,7 +88,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
               </p>
               <p>
                 You can ask the chatbot any question about me or this site,
-                don't be shy.
+                don&apos;t be shy.
               </p>
               <p className="text-sm text-muted-foreground">
                 You can check the Privacy Policy and how information is
@@ -120,7 +120,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
           <button
             type="submit"
             className="flex w-10 flex-none items-center justify-center disabled:opacity-50"
-            disabled={isLoading || input.length === 0}
+            disabled={input.length === 0}
             title="Submit message"
           >
             <SendHorizonal size={24} />
@@ -154,23 +154,33 @@ function ChatMessage({ message: { role, content } }: ChatMessageProps) {
       >
         <ReactMarkdown
           components={{
-            a: ({ node, ref, ...props }) => (
+            a: (
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              { node, ref, ...props },
+            ) => (
               <Link
                 {...props}
                 href={props.href ?? ""}
                 className="text-primary hover:underline"
               />
             ),
-            p: ({ node, ...props }) => (
-              <p {...props} className="mt-3 first:mt-0" />
-            ),
-            ul: ({ node, ...props }) => (
+            p: (
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              { node, ...props },
+            ) => <p {...props} className="mt-3 first:mt-0" />,
+            ul: (
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              { node, ...props },
+            ) => (
               <ul
                 {...props}
                 className="mt-3 list-inside list-disc first:mt-0"
               />
             ),
-            li: ({ node, ...props }) => <li {...props} className="mt-1" />,
+            li: (
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              { node, ...props },
+            ) => <li {...props} className="mt-1" />,
           }}
         >
           {content}

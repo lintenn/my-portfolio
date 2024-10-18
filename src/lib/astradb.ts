@@ -1,6 +1,6 @@
 import { AstraDBVectorStore } from "@langchain/community/vectorstores/astradb";
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { Collection, DataAPIClient } from "@datastax/astra-db-ts";
+import { DataAPIClient } from "@datastax/astra-db-ts";
 
 const endpoint = process.env.ASTRA_DB_ENDPOINT || "";
 const token = process.env.ASTRA_DB_APPLICATION_TOKEN || "";
