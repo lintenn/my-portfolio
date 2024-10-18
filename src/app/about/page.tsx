@@ -1,5 +1,6 @@
 import ExperienceCard from "@/components/ExperienceCard";
 import Section from "@/components/Section";
+import { H3 } from "@/components/ui/H3";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export default function Page() {
           and effective teamwork abilities.
         </p>
         <div className="space-b-8">
-          <h3 className="mb-2 text-xl font-semibold">Career</h3>
+          <H3 className="mb-2 text-xl font-semibold">Career</H3>
           <ExperienceCard
             title="Software Engineer"
             company="EDAG Group"
@@ -34,7 +35,7 @@ export default function Page() {
           />
         </div>
         <div>
-          <h3 className="mb-2 text-xl font-semibold">Education</h3>
+          <H3 className="mb-2 text-xl font-semibold">Education</H3>
           <ul className="list-inside list-disc space-y-2">
             <li>
               Fulda University of Applied Sciences (2022 - 2023) - Study Abroad
@@ -47,7 +48,7 @@ export default function Page() {
           </ul>
         </div>
         <div>
-          <h3 className="mb-2 text-xl font-semibold">Languages</h3>
+          <H3 className="mb-2 text-xl font-semibold">Languages</H3>
           <ul className="list-inside list-disc space-y-2">
             <li>English (Fluent)</li>
             <li>Spanish (Native)</li>
@@ -55,7 +56,7 @@ export default function Page() {
           </ul>
         </div>
         <div>
-          <h3 className="mb-2 text-xl font-semibold">Certifications</h3>
+          <H3 className="mb-2 text-xl font-semibold">Certifications</H3>
           <ul className="list-inside list-disc space-y-2">
             <li>Nvidia Certified Fundamentals of Deep Learning</li>
             <li>
