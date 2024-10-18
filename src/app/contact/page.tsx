@@ -1,6 +1,6 @@
 import Section from "@/components/Section";
-import EmailForm from "./EmailForm";
 import { Metadata } from "next";
+import EmailForm from "./EmailForm";
 
 export const metadata: Metadata = {
   title: "Contact Me",

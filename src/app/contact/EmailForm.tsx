@@ -10,18 +10,13 @@ export default function EmailForm() {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
+    
 
     try {
-      const response = await fetch(
-        "https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT",
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Accept: "application/json",
-          },
-        },
-      );
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         setFormStatus("Thanks for your message! I'll get back to you soon.");
