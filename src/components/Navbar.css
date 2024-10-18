@@ -1,0 +1,34 @@
+/* Efecto subrayado en los links para tema claro (por defecto) */
+.hover-underline-animation {
+    position: relative;
+    color: black; /* Color del texto en tema claro */
+    transition: color 0.3s ease;
+  }
+  
+  .hover-underline-animation::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: black; /* Subrayado en tema claro */
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  /* Efecto subrayado y texto en tema oscuro */
+  .dark .hover-underline-animation {
+    color: white; /* Color del texto en tema oscuro */
+  }
+  
+  .dark .hover-underline-animation::after {
+    background-color: white; /* Subrayado en tema oscuro */
+  }
+  

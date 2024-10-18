@@ -2,6 +2,7 @@ import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { H3 } from "@/components/ui/H3";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -32,7 +33,7 @@ export default function Page() {
         <p>
           Like many other websites, we collect information that your browser
           sends whenever you visit the site (&quot;Log Data&quot;). This Log
-          Data may inbclude information such as your computer&apos;s Internet
+          Data may include information such as your computer&apos;s Internet
           Protocol (&quot;IP&quot;) address, browser type, browser version, the
           pages of this site that you visit, the time and date of your visit,
           the time spent on the pages, and other statistics.
@@ -44,9 +45,9 @@ export default function Page() {
           and used solely to respond to your inquiries.
         </p>
         <H2>Use of Information</H2>
-        <p>The information we collect is used in the following ways:</p>
+        <p>The information collected is used in the following ways:</p>
         <ul className="list-inside list-disc">
-          <li>To ennsure the proper funtioning of the website</li>
+          <li>To ensure the proper funtioning of the website</li>
           <li>
             To improve the website based on the information and feedback
             received from you{" "}
@@ -82,7 +83,7 @@ export default function Page() {
         <H2>Contact</H2>
         <p>
           If you have any questions about this Privacy Policy, please send them
-          to luismgarciamarin@gmail.com.
+          to luismgarciamarin@gmail.com or contact me <Link href="/contact" className="text-primary hover:underline">here</Link>.
         </p>
       </div>
     </section>

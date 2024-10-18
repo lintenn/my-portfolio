@@ -90,7 +90,8 @@ export default function EmailForm() {
         <div>
           <button
             type="submit"
-            className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="inline-flex items-center rounded-md border border-transparent bg-gradient-to-r from-purple-300 via-indigo-300 to-blue-300 px-4 py-2 text-base font-medium shadow-sm transform hover:scale-105 transition-transform duration-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:from-purple-700 dark:via-indigo-800 dark:to-blue-900"
+            title="Send Message"
           >
             <Send className="mr-2 h-5 w-5" />
             Send Message

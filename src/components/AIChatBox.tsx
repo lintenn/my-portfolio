@@ -42,7 +42,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
   return (
     <div
       className={cn(
-        "bottom-0 right-0 z-50 w-full max-w-[500px] rounded-lg border bg-card p-1 xl:right-36",
+        "bottom-0 right-0 z-50 w-full max-w-[500px] rounded-lg border bg-muted p-1 xl:right-36",
         open ? "fixed" : "hidden",
       )}
     >
@@ -120,7 +120,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
           <button
             type="submit"
             className="flex w-10 flex-none items-center justify-center disabled:opacity-50"
-            disabled={input.length === 0}
+            disabled={input.length === 0 || input.trim().length === 0}
             title="Submit message"
           >
             <SendHorizonal size={24} />

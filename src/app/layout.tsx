@@ -35,11 +35,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="min-h-screen flex flex-col">
         <ThemeProvider attribute="class">
           <Navbar />
-          <main className="mx-auto max-w-3xl px-3 py-10">{children}</main>
+          <main className="flex-grow mx-auto max-w-3xl px-3 py-10">{children}</main>
           <Footer />
         </ThemeProvider>
+        </div>
       </body>
     </html>
   );
