@@ -27,9 +27,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   images = [],
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Funciones para avanzar y retroceder en el carrusel
+  // Functions to go to the next and previous image in the carousel
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length);
   };
@@ -38,19 +37,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Función para abrir el modal
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  // Función para cerrar el modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <div className="transform rounded-lg border bg-background p-6 shadow-lg transition hover:scale-105 hover:shadow-xl">
-      {/* Carrusel de imágenes */}
+      {/* Carousel  */}
       {images.length > 0 && (
         <div className="relative mb-4">
           <Image
@@ -59,9 +48,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             className="rounded-lg shadow"
             width={1600}
             height={900}
-            onClick={openModal} // Abre el modal al hacer clic en la imagen
           />
-          {/* Botones de navegación del carrusel */}
           <button
             onClick={prevImage}
             className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-gray-800 p-2 text-white hover:bg-gray-700"
@@ -77,12 +64,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       )}
 
-      {/* Título y Descripción */}
+      {/* Title and Description */}
       <div className="mb-4 flex items-center justify-between">
         <H3 className="text-2xl font-bold text-gray-900 dark:text-white">
           {title}
         </H3>
-        {/* Icono de GitHub */}
+        {/* GitHub Icon */}
         {githubLink && (
           <a
             href={githubLink}
@@ -105,7 +92,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <span className="font-bold">Results:</span> {results}
       </p>
 
-      {/* Enlace adicional (si existe) */}
+      {/* Additional Link (if it exists) */}
       {link && (
         <a
           href={link}

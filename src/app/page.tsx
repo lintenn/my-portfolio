@@ -48,9 +48,9 @@ export default function Home() {
         </div>
         {/* Image Section */}
         <div className="flex justify-center relative group">
-          {/* Sombra detrás de la imagen */}
+          {/* Shadow behind the image */}
           <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-purple-300 via-indigo-300 to-blue-300 dark:from-purple-900 dark:via-indigo-800 dark:to-blue-900 opacity-30 blur-lg transition-opacity duration-300 z-0"></div>
-          {/* Imagen encima de la sombra */}
+          {/* Image over the shadow */}
           <Image
             src={LuisPhoto}
             alt="A picture of me"

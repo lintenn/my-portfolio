@@ -251,11 +251,11 @@ export default function Page() {
         <div>
           <H3 className="mb-4 text-2xl font-bold">Hobbies</H3>
           <p className="text-gray-600 dark:text-gray-300">
-            When I'm not lifting weights at the gym or sharpening my boxing
+            When I&apos;m not lifting weights at the gym or sharpening my boxing
             skills, you can find me in the kitchen experimenting with new
             recipes. I also love to dance, especially salsa and bachata, where
-            rhythm takes over. And when I'm not moving to the beat or perfecting
-            a dish, I’m probably battling with German grammar—it’s a fun
+            rhythm takes over. And when I&apos;m not moving to the beat or perfecting
+            a dish, I&apos;m probably battling with German grammar—it&apos;s a fun
             challenge!
           </p>
         </div>
