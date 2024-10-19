@@ -20,7 +20,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
       <p className="mb-4 text-gray-500">{period}</p>
       <ul className="list-inside list-disc space-y-2">
         {responsibilities.map((responsibility, index) => (
-          <li key={index} className="text-gray-600">
+          <li key={index} className="">
             {responsibility}
           </li>
         ))}
