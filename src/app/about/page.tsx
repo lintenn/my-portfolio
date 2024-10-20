@@ -62,11 +62,11 @@ export default function Page() {
             company="EDAG Group"
             period="September 2022 - Present"
             responsibilities={[
-              "Developed a Smart Parking Management System using TensorFlow, YOLO, OpenCV, MQTT, Flask, Express.js and React.",
-              "Developed and configured a network of sensors and IP cameras for Smart City use cases.",
-              "Participated in the development of an internal Shift Planning Tool using Angular 18, Tailwind CSS with DaisyUI, and Spring Boot with PostgreSQL.",
-              "Performed E2E and integration testing on critical systems for chemical recipe and factory management.",
-              "Provided support with Azure DevOps, assisting with releases and deployment pipelines.",
+              "Developed a Smart Parking Management System using TensorFlow, YOLO, OpenCV, MQTT, Flask, Express.js and React, allowing employees to detect and visualize with camera images which parking spaces are free to park without much detours and achieving an over 90% detection accuracy.",
+              "Developed and configured a network of sensors and IP cameras for Smart City use cases using The Things Network, Swarm Analytics and Fiware platform.",
+              "Participated in the development of an internal Shift Planning Tool using Angular 18, Tailwind CSS with DaisyUI, and Spring Boot with PostgreSQL, integrating intelligent scheduling algorithms to automatically assigning staff to support shifts.",
+              "Performed E2E and integration testing on critical systems for chemical recipe and factory management, improving system stability and performance.",
+              "Provided support with Azure DevOps, assisting with releases and deployment pipelines. Managed dockerization of applications, ensuring seamless deployment across multiple environments.",
             ]}
           />
         </div>
@@ -254,9 +254,9 @@ export default function Page() {
             When I&apos;m not lifting weights at the gym or sharpening my boxing
             skills, you can find me in the kitchen experimenting with new
             recipes. I also love to dance, especially salsa and bachata, where
-            rhythm takes over. And when I&apos;m not moving to the beat or perfecting
-            a dish, I&apos;m probably battling with German grammar—it&apos;s a fun
-            challenge!
+            rhythm takes over. And when I&apos;m not moving to the beat or
+            perfecting a dish, I&apos;m probably battling with German
+            grammar—it&apos;s a fun challenge!
           </p>
         </div>
       </div>
