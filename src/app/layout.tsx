@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   },
   description:
     "Smart Portfolio Website with custom AI chatbot created by Luis Miguel García Marín.",
+  icons: {
+    icon: "/icon.ico",
+  }
 };
 
 export default function RootLayout({
@@ -32,6 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/icon.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
