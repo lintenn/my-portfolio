@@ -65,7 +65,27 @@ function git(cmd) {
   }
 }
 
+/** git diff arguments for the selected mode (working tree, --staged or --base <ref>). */
+function diffRange(argv) {
+  if (argv.includes("--staged")) return "--cached";
+  const baseIdx = argv.indexOf("--base");
+  return baseIdx !== -1 ? `${argv[baseIdx + 1]}...HEAD` : "HEAD";
+}
+
+/** A release bump touches only the "version" field of package.json: no docs needed for that. */
+function isVersionOnlyChange(file, argv) {
+  if (file !== "package.json") return false;
+  const changed = git(`diff -U0 ${diffRange(argv)} -- package.json`).filter(
+    (l) => /^[+-]/.test(l) && !/^(\+\+\+|---)/.test(l),
+  );
+  return changed.length > 0 && changed.every((l) => /^[+-]\s*"version":/.test(l));
+}
+
 export function changedFiles(argv = process.argv.slice(2)) {
+  return listChangedFiles(argv).filter((f) => !isVersionOnlyChange(f, argv));
+}
+
+function listChangedFiles(argv) {
   if (argv.includes("--staged")) return git("diff --cached --name-only --diff-filter=ACMRD");
   const baseIdx = argv.indexOf("--base");
   if (baseIdx !== -1) return git(`diff --name-only --diff-filter=ACMRD ${argv[baseIdx + 1]}...HEAD`);

@@ -2,7 +2,7 @@
   "name": "my-portfolio",
   "version": "2.1.0",
   "private": true,
-  "description": "AI-powered portfolio of Luis Miguel Garc\u00eda Mar\u00edn, built with Next.js and the Vercel AI SDK.",
+  "description": "AI-powered portfolio of Luis Miguel García Marín, built with Next.js and the Vercel AI SDK.",
   "engines": {
     "node": "24.x"
   },

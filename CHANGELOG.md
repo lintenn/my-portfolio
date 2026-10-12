@@ -22,6 +22,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Projects are sorted automatically newest first (ongoing → end year → start year) instead of by array order.
 - German level described as intermediate instead of the old A2 certificate.
 - The rotating role titles in the hero no longer include "Salsa dancer".
+- Docs guard ignores version-only bumps of `package.json` (release commits).
 - Home: "Skip the CV. Just ask." → "Curious about something? Just ask."
 - Chat header shows "Luis (AI)" / "Luis (IA)" / "Luis (KI)" with Luis's photo instead of "Luis's AI assistant".
 - Project carousels show images of any aspect ratio uncropped (blurred fill), support swipe and arrow keys.

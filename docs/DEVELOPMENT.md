@@ -34,7 +34,7 @@ Run everything locally with `npm run check && npm run build`.
 
 ## The docs guard
 
-`scripts/check-docs.mjs` contains rules of the form _"if files matching X changed, one of docs Y must change too"_ (e.g. `src/lib/ai/**` → `docs/CHATBOT.md`; any functional change → `CHANGELOG.md`). The same script powers the Claude hook, the git hook and CI, so the rules live in one place. When you add a new area of code, add a rule.
+`scripts/check-docs.mjs` contains rules of the form _"if files matching X changed, one of docs Y must change too"_ (e.g. `src/lib/ai/**` → `docs/CHATBOT.md`; any functional change → `CHANGELOG.md`). The same script powers the Claude hook, the git hook and CI, so the rules live in one place. When you add a new area of code, add a rule. A change to `package.json` that only bumps `"version"` (a release) is ignored.
 
 ```bash
 npm run docs:check                          # working tree vs HEAD

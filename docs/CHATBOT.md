@@ -45,6 +45,8 @@ Code map:
 
 The knowledge base is ~4k tokens. Instead of chunking it into a vector database and retrieving a few chunks per question (the 2024 version used LangChain + AstraDB + Upstash), the **whole** knowledge base is placed in the system prompt on every request.
 
+The knowledge base includes, per job, the company website when available (e.g. JCode Technologies), so the assistant can link to it.
+
 Why: at this size the model sees every fact (no retrieval misses), there's no embedding pipeline to keep in sync, no extra services that can hibernate, and prompt caching makes the repeated prefix cheap. RAG becomes the right tool again if the corpus grows past what fits comfortably in context (e.g. a large blog). Full reasoning: [ADR-0001](adr/0001-long-context-instead-of-rag.md).
 
 ## Prompt design
