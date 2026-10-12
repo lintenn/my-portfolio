@@ -1,0 +1,237 @@
+{
+  "Metadata": {
+    "keywords": "Ingeniero de Software, Ingeniero de IA, Full-Stack, LLM, Next.js, React, Málaga"
+  },
+  "Nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "main": "Principal",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "skipToContent": "Saltar al contenido",
+    "language": "Idioma",
+    "askAi": "Pregunta a mi IA",
+    "toggleTheme": "Cambiar tema de color",
+    "logoHint": "Volver al inicio"
+  },
+  "Footer": {
+    "builtWith": "Hecho con Next.js, el Vercel AI SDK y mucho ☕",
+    "sourceCode": "Código fuente",
+    "privacy": "Privacidad",
+    "madeIn": "Hecho con cariño en Málaga"
+  },
+  "Common": {
+    "present": "Actualidad",
+    "current": "Actual",
+    "technologies": "Tecnologías",
+    "workMode": {
+      "onSite": "Presencial",
+      "hybrid": "Híbrido",
+      "remote": "En remoto"
+    },
+    "employmentType": {
+      "fullTime": "Jornada completa",
+      "internship": "Prácticas"
+    }
+  },
+  "Home": {
+    "greeting": "Hola, soy",
+    "roles": [
+      "Ingeniero de Software",
+      "Ingeniero de IA",
+      "Desarrollador Full-Stack",
+      "Apasionado de la visión artificial"
+    ],
+    "photoAlt": "Retrato de {name}",
+    "photoHint": "Psst… ¡haz clic!",
+    "easterEgg": "Vale, vale, me has pillado 😄 ¿Prefieres charlar con mi versión IA?",
+    "easterEggCta": "Vamos a hablar",
+    "ctaWork": "Ver mis proyectos",
+    "ctaAbout": "Sobre mí",
+    "ask": {
+      "eyebrow": "Asistente de IA",
+      "title": "¿Tienes curiosidad? Pregúntame.",
+      "description": "Mi versión con IA conoce mi experiencia, mis proyectos y mis habilidades, te responde en tu idioma y te lleva a la página adecuada.",
+      "label": "Pregunta a mi asistente de IA",
+      "placeholder": "Pregúntame lo que quieras — p. ej. «¿Qué experiencia tienes con LLMs?»",
+      "submit": "Preguntar"
+    },
+    "stats": {
+      "years": "años creando software",
+      "projects": "proyectos destacados",
+      "honors": "matrículas de honor",
+      "certifications": "certificaciones"
+    },
+    "experience": {
+      "eyebrow": "Experiencia",
+      "title": "De la visión artificial a la IA generativa",
+      "description": "Más de {years} años construyendo productos con IA, desde unas prácticas en Alemania hasta proyectos de IA generativa para grandes empresas en España.",
+      "cta": "Experiencia completa"
+    },
+    "projects": {
+      "eyebrow": "Proyectos",
+      "title": "Trabajos destacados",
+      "cta": "Todos los proyectos"
+    },
+    "marquee": "Tecnologías con las que trabajo",
+    "how": {
+      "eyebrow": "Bajo el capó",
+      "title": "Cómo funciona el asistente",
+      "description": "Una pequeña app de LLM pensada para producción. La explicación completa, con las decisiones de arquitectura, está en el repositorio.",
+      "cta": "Ver el código y la documentación en GitHub",
+      "items": {
+        "source": {
+          "title": "Una única fuente de verdad",
+          "body": "Todo el contenido vive en ficheros TypeScript tipados, en tres idiomas. Los mismos datos pintan estas páginas y se convierten en el conocimiento del asistente, así que nunca se desincronizan."
+        },
+        "context": {
+          "title": "Respuestas basadas en todo el contexto",
+          "body": "Toda la base de conocimiento cabe en la ventana de contexto del modelo, así que en lugar de un RAG con base de datos vectorial el modelo lo ve todo: más simple y más preciso."
+        },
+        "caching": {
+          "title": "Prompt caching",
+          "body": "La parte grande y estática del prompt va primero para que el proveedor la cachee: las preguntas siguientes la reutilizan por una fracción del coste y empiezan a responder antes."
+        },
+        "tools": {
+          "title": "Tool calling y UI generativa",
+          "body": "El modelo puede llamar a herramientas tipadas para mostrar tarjetas de proyectos o de contacto, que se pintan como componentes React en el chat mientras llega la respuesta."
+        },
+        "guardrails": {
+          "title": "Guardarraíles",
+          "body": "Validación de entrada, ventana deslizante de historial, límites por IP y globales, tope de salida y un system prompt reforzado lo mantienen seguro y barato."
+        },
+        "evals": {
+          "title": "Evaluado, no a ojo",
+          "body": "Una batería de evals comprueba la precisión de los datos, el idioma, el uso de herramientas y la resistencia a prompt injection antes de publicar cambios."
+        }
+      }
+    }
+  },
+  "About": {
+    "metaDescription": "Experiencia, formación, habilidades y certificaciones de {name}.",
+    "eyebrow": "Sobre mí",
+    "title": "Ingeniero, creador y aprendiz eterno",
+    "photoAlt": "Retrato de {name}",
+    "careerEyebrow": "Trayectoria",
+    "experience": "Experiencia",
+    "skillsEyebrow": "Caja de herramientas",
+    "skills": "Habilidades",
+    "softSkills": "Habilidades personales",
+    "education": "Formación",
+    "honorsIntro": "Matrícula de Honor en {count} asignaturas:",
+    "awards": "Premios",
+    "certifications": "Certificaciones",
+    "viewCredential": "Ver credencial: {name}",
+    "languages": "Idiomas",
+    "hobbies": "Más allá del teclado"
+  },
+  "Projects": {
+    "metaDescription": "Proyectos de IA, visión artificial, web y móvil de {name}.",
+    "eyebrow": "Proyectos",
+    "title": "Cosas que he construido",
+    "description": "Una mezcla de investigación en IA, productos y hackathons, de más reciente a más antiguo. La mayor parte de mi trabajo profesional está bajo NDA: pregúntale al asistente y te hará un resumen.",
+    "challenges": "Retos",
+    "results": "Resultados",
+    "sourceCode": "Código fuente de {title} en GitHub",
+    "askAi": "Pregúntale a la IA",
+    "askAiPrompt": "Cuéntame más sobre el proyecto {title}",
+    "moreOnGithub": "Más en GitHub",
+    "carousel": "Imágenes de {title}",
+    "previous": "Imagen anterior",
+    "next": "Imagen siguiente",
+    "showImage": "Ver imagen {n}",
+    "imageAlt": "{title} — imagen {n} de {total}"
+  },
+  "Contact": {
+    "metaDescription": "Escríbeme para oportunidades, colaboraciones o simplemente para saludar.",
+    "eyebrow": "Contacto",
+    "title": "Hablemos",
+    "description": "Oportunidades, colaboraciones o una pregunta sobre alguno de mis proyectos: te responderé lo antes posible.",
+    "name": "Nombre",
+    "email": "Email",
+    "message": "Mensaje",
+    "send": "Enviar mensaje",
+    "sending": "Enviando…",
+    "privacyNote": "Tus datos solo se usan para responderte. Consulta la <link>política de privacidad</link>.",
+    "success": "¡Gracias por tu mensaje! Te responderé pronto.",
+    "errors": {
+      "name": "Dime tu nombre, por favor.",
+      "email": "Introduce un email válido.",
+      "messageShort": "Tu mensaje es un poco corto.",
+      "messageLong": "Por favor, no superes los 5000 caracteres.",
+      "review": "Revisa los campos marcados.",
+      "notConfigured": "El formulario no está disponible ahora mismo. Escríbeme por email, por favor.",
+      "failed": "Vaya, no se ha podido enviar el mensaje. Inténtalo de nuevo o escríbeme directamente por email."
+    }
+  },
+  "Privacy": {
+    "title": "Política de privacidad",
+    "metaDescription": "Cómo trata esta web los mensajes del chat, los datos del formulario de contacto y las analíticas.",
+    "lastUpdated": "Última actualización: {date}",
+    "intro": "Este es el portfolio personal de {name}, con sede en {location}. Quiero que recoja los menos datos posibles. Esta página explica exactamente qué se trata, para qué y quién lo hace.",
+    "noAccountsTitle": "Sin cuentas ni cookies publicitarias",
+    "noAccounts": "No necesitas una cuenta para usar esta web, y no utiliza cookies publicitarias ni de seguimiento entre sitios. Tu preferencia de tema y tu conversación actual del chat se guardan solo en tu navegador. Tu idioma se recuerda con una pequeña cookie funcional (NEXT_LOCALE). Ninguna de ellas se usa para rastrearte.",
+    "chatTitle": "Asistente de IA",
+    "chat1": "Los mensajes que escribes en el chat se envían a <strong>OpenAI</strong> para generar las respuestas. Las peticiones se hacen con el almacenamiento desactivado (<code>store: false</code>) y, según las condiciones de la API de OpenAI, no se usan para entrenar modelos. OpenAI puede conservar los datos de la API durante un tiempo limitado para vigilar abusos.",
+    "chat2": "Para evitar abusos y controlar costes, tu dirección IP se usa para aplicar límites de uso. A OpenAI solo se le envía un hash irreversible de ella como identificador de seguridad anónimo. Si el límite con <strong>Upstash</strong> está activado, los contadores asociados a la IP caducan automáticamente a los pocos minutos (cada día en el caso del contador global).",
+    "chat3": "Los registros técnicos guardan el uso de tokens y los errores, no el contenido de tu conversación.",
+    "chat4": "Por favor, no compartas información personal sensible en el chat. Las respuestas las genera una IA y pueden contener errores.",
+    "contactTitle": "Formulario de contacto",
+    "contact": "Cuando usas el <link>formulario de contacto</link>, tu nombre, email y mensaje me llegan a través de <strong>Formspree</strong>. Solo los uso para responderte y los borro cuando ya no son necesarios.",
+    "hostingTitle": "Alojamiento y analíticas",
+    "hosting": "La web está alojada en <strong>Vercel</strong>, que procesa los registros habituales del servidor (como la dirección IP, el navegador y las páginas solicitadas) para ofrecer y proteger el servicio. Vercel Web Analytics y Speed Insights ofrecen estadísticas agregadas de visitas y rendimiento, sin cookies, que no identifican a ningún visitante.",
+    "rightsTitle": "Tus derechos",
+    "rights": "Según el RGPD puedes pedir acceder a tus datos personales, rectificarlos o suprimirlos, u oponerte a su tratamiento. Solo tienes que escribirme a <email>{email}</email>. También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD).",
+    "changesTitle": "Cambios",
+    "changes": "Si esta política cambia, la nueva versión se publicará en esta página con la fecha actualizada."
+  },
+  "NotFound": {
+    "title": "Esta página no existe",
+    "description": "Puede que se haya movido o que el enlace esté mal. Puedes volver al inicio, o preguntarle al asistente de IA qué estabas buscando.",
+    "back": "Volver al inicio"
+  },
+  "Chat": {
+    "title": "{name} (IA)",
+    "subtitle": "Mi versión con IA · responde en tu idioma",
+    "typing": "Escribiendo…",
+    "dialogLabel": "Chat con la versión IA de {name}",
+    "open": "Abrir el asistente de IA",
+    "launcher": "Pregunta a mi IA",
+    "nudge": "¿Tienes preguntas? Pregúntame lo que quieras 👋",
+    "dismiss": "Cerrar",
+    "close": "Cerrar (Esc)",
+    "clear": "Borrar conversación",
+    "greeting": "¡Hola! Soy {name}… bueno, mi versión con IA 👋",
+    "intro": "Pregúntame lo que quieras sobre mi experiencia, mis proyectos o mis habilidades, en español, inglés, alemán o cualquier otro idioma.",
+    "inputLabel": "Tu mensaje",
+    "placeholder": "Pregúntame lo que quieras…",
+    "send": "Enviar (Intro)",
+    "stop": "Detener",
+    "thinking": "Pensando",
+    "retry": "Reintentar",
+    "disclaimer": "La IA puede equivocarse: comprueba los datos importantes. Consulta la <link>política de privacidad</link>.",
+    "lookingUpProjects": "Buscando proyectos…",
+    "preparingContact": "Preparando opciones de contacto…",
+    "noProjects": "No hay proyectos que coincidan.",
+    "contactTitle": "Ponte en contacto con {name}",
+    "openContactForm": "Abrir el formulario de contacto",
+    "genericError": "Algo ha ido mal. Inténtalo de nuevo."
+  },
+  "ChatApi": {
+    "notConfigured": "El asistente no está configurado en este momento.",
+    "tooManyRequests": "Demasiados mensajes. Espera unos minutos y vuelve a intentarlo.",
+    "invalidRequest": "Petición no válida.",
+    "lastNotUser": "El último mensaje debe ser del usuario.",
+    "tooLong": "Los mensajes tienen un límite de {max} caracteres.",
+    "quota": "El asistente se está tomando un descanso (se ha agotado su presupuesto de IA). Inténtalo más tarde o escríbeme desde el formulario de contacto.",
+    "rateLimit": "El asistente está muy ocupado ahora mismo. Inténtalo de nuevo en un minuto.",
+    "auth": "El asistente no está disponible temporalmente. Mientras tanto, usa el formulario de contacto.",
+    "unavailable": "El proveedor de IA está teniendo problemas. Inténtalo de nuevo en un momento.",
+    "unknown": "Lo siento, algo ha fallado por mi parte. Inténtalo de nuevo en un momento."
+  },
+  "Og": {
+    "cta": "✨ Pregúntale a mi asistente de IA lo que quieras sobre mí"
+  }
+}

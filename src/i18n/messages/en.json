@@ -1,0 +1,232 @@
+{
+  "Metadata": {
+    "keywords": "Software Engineer, AI Engineer, Full-Stack, LLM, Next.js, React, Málaga"
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "main": "Main",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content",
+    "language": "Language",
+    "askAi": "Ask my AI",
+    "toggleTheme": "Toggle color theme",
+    "logoHint": "Back to home"
+  },
+  "Footer": {
+    "builtWith": "Built with Next.js, the Vercel AI SDK and a lot of ☕",
+    "sourceCode": "Source code",
+    "privacy": "Privacy",
+    "madeIn": "Made with love in Málaga"
+  },
+  "Common": {
+    "present": "Present",
+    "current": "Current",
+    "technologies": "Technologies",
+    "workMode": {
+      "onSite": "On-site",
+      "hybrid": "Hybrid",
+      "remote": "Remote"
+    },
+    "employmentType": {
+      "fullTime": "Full-time",
+      "internship": "Internship"
+    }
+  },
+  "Home": {
+    "greeting": "Hi, I'm",
+    "roles": ["Software Engineer", "AI Engineer", "Full-Stack Developer", "Computer Vision tinkerer"],
+    "photoAlt": "Portrait of {name}",
+    "photoHint": "Psst… click me!",
+    "easterEgg": "Okay, okay, you found me 😄 Want to chat with my AI version instead?",
+    "easterEggCta": "Let's chat",
+    "ctaWork": "View my work",
+    "ctaAbout": "About me",
+    "ask": {
+      "eyebrow": "AI assistant",
+      "title": "Curious about something? Just ask.",
+      "description": "My AI version knows my experience, projects and skills, answers in your language and takes you to the right page.",
+      "label": "Ask my AI assistant",
+      "placeholder": "Ask me anything — e.g. “What's your experience with LLMs?”",
+      "submit": "Ask"
+    },
+    "stats": {
+      "years": "years building software",
+      "projects": "projects showcased",
+      "honors": "courses with highest distinction",
+      "certifications": "certifications"
+    },
+    "experience": {
+      "eyebrow": "Experience",
+      "title": "From computer vision to generative AI",
+      "description": "{years}+ years shipping AI-powered products, from an internship in Germany to enterprise generative-AI projects in Spain.",
+      "cta": "Full experience"
+    },
+    "projects": {
+      "eyebrow": "Projects",
+      "title": "Selected work",
+      "cta": "All projects"
+    },
+    "marquee": "Technologies I work with",
+    "how": {
+      "eyebrow": "Under the hood",
+      "title": "How the assistant works",
+      "description": "A small, production-minded LLM app. The full write-up, with architecture decisions, is in the repository.",
+      "cta": "Read the code & docs on GitHub",
+      "items": {
+        "source": {
+          "title": "One source of truth",
+          "body": "All content lives in typed TypeScript files, in three languages. The same data renders these pages and becomes the assistant's knowledge, so they can never drift apart."
+        },
+        "context": {
+          "title": "Grounded long-context answers",
+          "body": "The whole knowledge base fits in the model's context window, so instead of a vector-database RAG pipeline the model sees everything — simpler and more accurate."
+        },
+        "caching": {
+          "title": "Prompt caching",
+          "body": "The large, static part of the prompt comes first, so the provider caches it: follow-up questions reuse it at a fraction of the cost and start answering faster."
+        },
+        "tools": {
+          "title": "Tool calling & generative UI",
+          "body": "The model can call typed tools to show project or contact cards, rendered as React components in the chat while the answer streams in."
+        },
+        "guardrails": {
+          "title": "Guardrails",
+          "body": "Input validation, a sliding history window, per-IP and global rate limits, output caps and a hardened system prompt keep it safe and cheap to run."
+        },
+        "evals": {
+          "title": "Evaluated, not vibes",
+          "body": "An eval suite checks factual accuracy, language matching, tool usage and prompt-injection resistance before changes ship."
+        }
+      }
+    }
+  },
+  "About": {
+    "metaDescription": "Experience, education, skills and certifications of {name}.",
+    "eyebrow": "About me",
+    "title": "Engineer, builder, lifelong learner",
+    "photoAlt": "Portrait of {name}",
+    "careerEyebrow": "Career",
+    "experience": "Experience",
+    "skillsEyebrow": "Toolbox",
+    "skills": "Skills",
+    "softSkills": "Soft skills",
+    "education": "Education",
+    "honorsIntro": "Highest distinction (Matrícula de Honor) in {count} courses:",
+    "awards": "Awards",
+    "certifications": "Certifications",
+    "viewCredential": "View credential: {name}",
+    "languages": "Languages",
+    "hobbies": "Beyond the keyboard"
+  },
+  "Projects": {
+    "metaDescription": "AI, computer vision, web and mobile projects by {name}.",
+    "eyebrow": "Projects",
+    "title": "Things I've built",
+    "description": "A mix of AI research, products and hackathon work, newest first. Most of my professional work is under NDA — ask the assistant about it for a summary.",
+    "challenges": "Challenges",
+    "results": "Results",
+    "sourceCode": "{title} source code on GitHub",
+    "askAi": "Ask the AI about it",
+    "askAiPrompt": "Tell me more about the {title} project",
+    "moreOnGithub": "More on GitHub",
+    "carousel": "{title} screenshots",
+    "previous": "Previous image",
+    "next": "Next image",
+    "showImage": "Show image {n}",
+    "imageAlt": "{title} — image {n} of {total}"
+  },
+  "Contact": {
+    "metaDescription": "Reach out for opportunities, collaborations or just to say hi.",
+    "eyebrow": "Contact",
+    "title": "Let's talk",
+    "description": "Opportunities, collaborations or a question about one of my projects — I'll get back to you as soon as I can.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send message",
+    "sending": "Sending…",
+    "privacyNote": "Your data is only used to reply. See the <link>privacy policy</link>.",
+    "success": "Thanks for your message! I'll get back to you soon.",
+    "errors": {
+      "name": "Please tell me your name.",
+      "email": "Please enter a valid email address.",
+      "messageShort": "Your message is a bit short.",
+      "messageLong": "Please keep it under 5000 characters.",
+      "review": "Please review the highlighted fields.",
+      "notConfigured": "The contact form is not configured right now. Please email me instead.",
+      "failed": "Oops, the message could not be sent. Please try again or email me directly."
+    }
+  },
+  "Privacy": {
+    "title": "Privacy Policy",
+    "metaDescription": "How this website handles chat messages, contact-form data and analytics.",
+    "lastUpdated": "Last updated: {date}",
+    "intro": "This is the personal portfolio of {name}, based in {location}. I want it to collect as little data as possible. This page explains exactly what is processed, why, and by whom.",
+    "noAccountsTitle": "No accounts, no advertising cookies",
+    "noAccounts": "You don't need an account to use this site, and it doesn't use advertising or cross-site tracking cookies. Your theme preference and your current chat conversation are stored only in your own browser. Your language choice is remembered with a small functional cookie (NEXT_LOCALE). None of them is used for tracking.",
+    "chatTitle": "AI assistant",
+    "chat1": "Messages you type in the chat are sent to <strong>OpenAI</strong> to generate the answers. Requests are made with storage disabled (<code>store: false</code>), and under OpenAI's API terms they are not used to train models. OpenAI may keep API data for a limited time for abuse monitoring.",
+    "chat2": "To prevent abuse and control costs, your IP address is used to apply rate limits. Only a one-way hash of it is shared with OpenAI as an anonymous safety identifier. If rate limiting via <strong>Upstash</strong> is enabled, counters keyed by IP expire automatically after a few minutes (daily for the global counter).",
+    "chat3": "Technical logs record token usage and errors, not the content of your conversation.",
+    "chat4": "Please don't share sensitive personal information in the chat. Answers are AI-generated and may contain mistakes.",
+    "contactTitle": "Contact form",
+    "contact": "When you use the <link>contact form</link>, your name, email and message are delivered to me through <strong>Formspree</strong>. I only use them to reply to you and delete them when they are no longer needed.",
+    "hostingTitle": "Hosting and analytics",
+    "hosting": "The site is hosted on <strong>Vercel</strong>, which processes standard server logs (such as IP address, browser and requested pages) to deliver and secure the service. Vercel Web Analytics and Speed Insights provide aggregated, cookie-less visit and performance statistics that don't identify individual visitors.",
+    "rightsTitle": "Your rights",
+    "rights": "Under the GDPR you can ask to access, correct or delete any personal data I hold about you, or object to its processing. Just email me at <email>{email}</email>. You can also lodge a complaint with the Spanish Data Protection Agency (AEPD).",
+    "changesTitle": "Changes",
+    "changes": "If this policy changes, the new version will be published on this page with an updated date."
+  },
+  "NotFound": {
+    "title": "This page doesn't exist",
+    "description": "Maybe it moved, or maybe the link is wrong. You can go back home — or ask the AI assistant what you were looking for.",
+    "back": "Back home"
+  },
+  "Chat": {
+    "title": "{name} (AI)",
+    "subtitle": "My AI version · replies in your language",
+    "typing": "Typing…",
+    "dialogLabel": "Chat with {name}'s AI version",
+    "open": "Open the AI assistant",
+    "launcher": "Ask my AI",
+    "nudge": "Got questions? Ask me anything 👋",
+    "dismiss": "Dismiss",
+    "close": "Close (Esc)",
+    "clear": "Clear conversation",
+    "greeting": "Hi! I'm {name} — well, my AI version 👋",
+    "intro": "Ask me anything about my experience, projects or skills — in English, Spanish, German or any other language.",
+    "inputLabel": "Your message",
+    "placeholder": "Ask me anything…",
+    "send": "Send (Enter)",
+    "stop": "Stop",
+    "thinking": "Thinking",
+    "retry": "Try again",
+    "disclaimer": "AI can make mistakes — double-check important details. See the <link>privacy policy</link>.",
+    "lookingUpProjects": "Looking up projects…",
+    "preparingContact": "Preparing contact options…",
+    "noProjects": "No matching projects.",
+    "contactTitle": "Get in touch with {name}",
+    "openContactForm": "Open the contact form",
+    "genericError": "Something went wrong. Please try again."
+  },
+  "ChatApi": {
+    "notConfigured": "The assistant is not configured right now.",
+    "tooManyRequests": "Too many messages. Please wait a few minutes and try again.",
+    "invalidRequest": "Invalid request.",
+    "lastNotUser": "The last message must be a user message.",
+    "tooLong": "Messages are limited to {max} characters.",
+    "quota": "The assistant is taking a break right now (its AI budget is used up). Please try again later, or reach me through the contact form.",
+    "rateLimit": "The assistant is very busy right now. Please try again in a minute.",
+    "auth": "The assistant is temporarily unavailable. Please use the contact form in the meantime.",
+    "unavailable": "The AI provider is having issues right now. Please try again in a moment.",
+    "unknown": "Sorry, something went wrong on my side. Please try again in a moment."
+  },
+  "Og": {
+    "cta": "✨ Ask my AI assistant anything about me"
+  }
+}
