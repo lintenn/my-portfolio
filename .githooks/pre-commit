@@ -1,0 +1,21 @@
+#!/bin/sh
+# Git pre-commit hook (enabled automatically by `npm install` → "prepare" script).
+# Fast checks on staged files only. Skip in an emergency with: git commit --no-verify
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$STAGED" ] && exit 0
+
+FORMATTABLE=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|mjs|mts|json|css|md|ya?ml)$' | grep -v '^package-lock.json$')
+if [ -n "$FORMATTABLE" ]; then
+  echo "$FORMATTABLE" | xargs npx --no-install prettier --check --log-level warn || {
+    echo "\n✗ Some files are not formatted. Run: npm run format"; exit 1; }
+fi
+
+LINTABLE=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|mjs|mts)$')
+if [ -n "$LINTABLE" ]; then
+  echo "$LINTABLE" | xargs npx --no-install eslint --max-warnings=0 || exit 1
+fi
+
+# Docs guard: warn only (CI enforces it on pull requests).
+node scripts/check-docs.mjs --staged || echo "⚠ Commit allowed, but remember to update the docs (CI will check)."
+exit 0

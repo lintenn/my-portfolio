@@ -1,0 +1,48 @@
+name: Chatbot evals
+
+# Runs the LLM eval suite against the real model. It costs a few cents, so it only
+# runs on demand or on PRs that touch the assistant, and only if the
+# OPENAI_API_KEY repository secret is configured.
+on:
+  workflow_dispatch:
+    inputs:
+      judge:
+        description: "Also run the LLM-as-judge faithfulness checks"
+        type: boolean
+        default: true
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/lib/ai/**"
+      - "src/content/**"
+      - "evals/**"
+
+permissions:
+  contents: read
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - name: Skip when no API key is configured
+        if: env.OPENAI_API_KEY == ''
+        run: echo "::notice::OPENAI_API_KEY secret not set — skipping evals."
+      - uses: actions/checkout@v7
+        if: env.OPENAI_API_KEY != ''
+      - uses: actions/setup-node@v7
+        if: env.OPENAI_API_KEY != ''
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - if: env.OPENAI_API_KEY != ''
+        run: npm ci
+      - if: env.OPENAI_API_KEY != ''
+        run: npm run eval -- ${{ (github.event_name == 'pull_request' || inputs.judge) && '--judge' || '' }}
+      - uses: actions/upload-artifact@v7
+        if: always() && env.OPENAI_API_KEY != ''
+        with:
+          name: eval-report
+          path: evals/reports/

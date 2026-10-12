@@ -1,59 +1,178 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+/* Class-based dark mode, toggled by next-themes on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+:root {
+  --background: oklch(0.99 0.004 286);
+  --foreground: oklch(0.21 0.02 285);
+  --card: oklch(1 0 0 / 0.75);
+  --card-foreground: var(--foreground);
+  --muted: oklch(0.96 0.008 286);
+  --muted-foreground: oklch(0.5 0.02 285);
+  --border: oklch(0.91 0.01 286);
+  --ring: oklch(0.6 0.2 280);
+  --primary: oklch(0.54 0.22 281);
+  --primary-foreground: oklch(0.99 0 0);
+  --accent: oklch(0.95 0.03 285);
+  --accent-foreground: oklch(0.35 0.15 281);
+  --success: oklch(0.6 0.15 155);
+  --destructive: oklch(0.58 0.22 25);
+
+  /* Brand gradient: violet → indigo → sky. Backgrounds (white text on top)… */
+  --brand-1: oklch(0.62 0.23 300);
+  --brand-2: oklch(0.55 0.23 275);
+  --brand-3: oklch(0.6 0.16 235);
+  /* …and gradient text, which must contrast with the page background. */
+  --brand-text-1: oklch(0.6 0.24 300);
+  --brand-text-2: oklch(0.52 0.23 275);
+  --brand-text-3: oklch(0.58 0.16 235);
+  --glow: oklch(0.7 0.18 285 / 0.18);
+}
+
+.dark {
+  --background: oklch(0.15 0.015 285);
+  --foreground: oklch(0.96 0.005 285);
+  --card: oklch(0.2 0.02 285 / 0.6);
+  --muted: oklch(0.22 0.02 285);
+  --muted-foreground: oklch(0.7 0.02 285);
+  --border: oklch(0.3 0.025 285);
+  --ring: oklch(0.7 0.17 280);
+  --primary: oklch(0.72 0.17 281);
+  --primary-foreground: oklch(0.15 0.02 285);
+  --accent: oklch(0.26 0.05 285);
+  --accent-foreground: oklch(0.88 0.08 285);
+  --success: oklch(0.75 0.15 155);
+  --destructive: oklch(0.7 0.19 25);
+
+  --brand-text-1: oklch(0.76 0.18 305);
+  --brand-text-2: oklch(0.72 0.17 278);
+  --brand-text-3: oklch(0.8 0.12 230);
+  --glow: oklch(0.6 0.2 285 / 0.22);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
+  --color-brand-1: var(--brand-1);
+  --color-brand-2: var(--brand-2);
+  --color-brand-3: var(--brand-3);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
   }
 }
 
+/* ── Base ────────────────────────────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border;
   }
+  html {
+    color-scheme: light;
+    scroll-padding-top: 5rem;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--brand-2) 30%, transparent);
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+/* ── Utilities ───────────────────────────────────────────────────────────── */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--brand-text-1),
+    var(--brand-text-2) 45%,
+    var(--brand-text-3)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(100deg, var(--brand-1), var(--brand-2) 45%, var(--brand-3));
+}
+
+/* Subtle dotted grid + glow used as the page backdrop. */
+@utility bg-backdrop {
+  background-image:
+    radial-gradient(60rem 30rem at 50% -10%, var(--glow), transparent 70%),
+    radial-gradient(color-mix(in oklch, var(--foreground) 9%, transparent) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    22px 22px;
+}
+
+/* Decorative cover for projects without screenshots. */
+@utility bg-cover-pattern {
+  background-image:
+    linear-gradient(color-mix(in oklch, white 12%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklch, white 12%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, color-mix(in oklch, white 30%, transparent), transparent 45%),
+    linear-gradient(135deg, var(--brand-1), var(--brand-2) 50%, var(--brand-3));
+  background-size:
+    28px 28px,
+    28px 28px,
+    100% 100%,
+    100% 100%;
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

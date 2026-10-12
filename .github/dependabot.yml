@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # One PR per family keeps the noise down.
+      ai-sdk:
+        patterns: ["ai", "@ai-sdk/*"]
+      next-react:
+        patterns:
+          ["next", "react", "react-dom", "@types/react*", "eslint-config-next", "babel-plugin-react-compiler"]
+      tooling:
+        dependency-type: development
+    ignore:
+      # Major upgrades are done deliberately (see docs/DEVELOPMENT.md#dependency-upgrades).
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: monthly

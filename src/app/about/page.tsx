@@ -1,265 +1,189 @@
-import ExperienceCard from "@/components/ExperienceCard";
-import Section from "@/components/Section";
-import { H3 } from "@/components/ui/H3";
-import { Metadata } from "next";
-import {
-  Github,
-  Code,
-  Brain,
-  Users,
-  Lightbulb,
-  MessageCircle,
-} from "lucide-react"; // Nuevos íconos
-import {
-  SiJavascript,
-  SiFlask,
-  SiTypescript,
-  SiSpringboot,
-  SiReact,
-  SiAngular,
-  SiUnity,
-  SiNextdotjs,
-  SiPython,
-  SiDocker,
-  SiPostgresql,
-  SiMongodb,
-  SiTensorflow,
-  SiKeras,
-  SiPytorch,
-  SiAmazonwebservices,
-  SiAzuredevops,
-} from "react-icons/si"; // Íconos del stack tecnológico
+import { Award, BadgeCheck, ExternalLink, GraduationCap, Heart, Languages } from "lucide-react";
+import type { Metadata } from "next";
+import Image from "next/image";
+import LuisPhoto from "@/assets/luis-photo.jpg";
+import { ExperienceTimeline } from "@/components/about/experience-timeline";
+import { Badge, Card, Container, SectionHeading } from "@/components/ui/primitives";
+import { awards, certifications, education, profile, skillGroups, softSkills } from "@/content";
+import { formatYearMonth } from "@/lib/dates";
 
 export const metadata: Metadata = {
-  title: "About Me",
+  title: "About",
+  description: `Experience, education, skills and certifications of ${profile.name}.`,
+  alternates: { canonical: "/about" },
 };
 
-export default function Page() {
+export const revalidate = 86400;
+
+export default function AboutPage() {
   return (
-    <Section id="about" title="About Me">
-      <div className="space-y-12">
-        {/* Introduction */}
-        <div>
-          <p className="mb-4">
-            I am a Full Stack AI Developer with a passion for creating
-            innovative solutions. With more than 2 years of professional
-            experience, I have been involved in all phases of software
-            development with Artificial Intelligence, from concept to delivery.
-            I am open to learning new tools, with initiative, perseverance,
-            strong problem-solving skills, and effective teamwork abilities.
-          </p>
-          <p>
-            I am from Spain, but I am currently located in Germany and I have
-            been working here for more than 2 years.
+    <Container className="space-y-24 pt-14 sm:pt-20">
+      {/* Intro */}
+      <section className="grid items-start gap-10 md:grid-cols-[1.6fr_1fr]">
+        <div className="space-y-6">
+          <SectionHeading as="h1" eyebrow="About me" title="Engineer, builder, lifelong learner" />
+          <div className="space-y-4 text-lg text-pretty text-muted-foreground">
+            {profile.summary.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+          <p className="rounded-xl border-l-4 border-primary bg-accent/50 px-4 py-3 text-sm">
+            {profile.availability}
           </p>
         </div>
+        <Image
+          src={LuisPhoto}
+          alt={`Portrait of ${profile.name}`}
+          placeholder="blur"
+          sizes="(min-width: 768px) 33vw, 100vw"
+          className="mx-auto aspect-square w-full max-w-xs rounded-3xl border object-cover shadow-xl"
+        />
+      </section>
 
-        {/* Career */}
-        <div>
-          <H3 className="mb-4 text-2xl font-bold">Career</H3>
-          <ExperienceCard
-            title="Software Engineer"
-            company="EDAG Group"
-            period="September 2022 - Present"
-            responsibilities={[
-              "Developed a Smart Parking Management System using TensorFlow, YOLO, OpenCV, MQTT, Flask, Express.js and React, allowing employees to detect and visualize with camera images which parking spaces are free to park without much detours and achieving an over 90% detection accuracy.",
-              "Developed and configured a network of sensors and IP cameras for Smart City use cases using The Things Network, Swarm Analytics and Fiware platform.",
-              "Participated in the development of an internal Shift Planning Tool using Angular 18, Tailwind CSS with DaisyUI, and Spring Boot with PostgreSQL, integrating intelligent scheduling algorithms to automatically assigning staff to support shifts.",
-              "Performed E2E and integration testing on critical systems for chemical recipe and factory management, improving system stability and performance.",
-              "Provided support with Azure DevOps, assisting with releases and deployment pipelines. Managed dockerization of applications, ensuring seamless deployment across multiple environments.",
-            ]}
-          />
+      {/* Experience */}
+      <section className="space-y-10">
+        <SectionHeading eyebrow="Career" title="Experience" />
+        <ExperienceTimeline />
+      </section>
+
+      {/* Skills */}
+      <section className="space-y-10">
+        <SectionHeading eyebrow="Toolbox" title="Skills" />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {skillGroups.map((group) => (
+            <Card key={group.name} className="space-y-3 p-5">
+              <h3 className="font-semibold">{group.name}</h3>
+              <ul className="flex flex-wrap gap-1.5">
+                {group.skills.map((s) => (
+                  <li key={s}>
+                    <Badge>{s}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          ))}
+        </div>
+        <ul className="flex flex-wrap gap-2" aria-label="Soft skills">
+          {softSkills.map((s) => (
+            <li key={s} className="rounded-full bg-accent px-3 py-1 text-sm text-accent-foreground">
+              {s}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Education + awards */}
+      <section className="grid gap-12 lg:grid-cols-2">
+        <div className="space-y-6">
+          <h2 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+            <GraduationCap className="text-primary" /> Education
+          </h2>
+          {education.map((edu) => (
+            <Card key={edu.institution} className="space-y-2 p-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="font-semibold">{edu.degree}</h3>
+                <span className="font-mono text-xs text-muted-foreground">
+                  {edu.start} – {edu.end}
+                </span>
+              </div>
+              <p className="text-gradient text-sm font-medium">{edu.institution}</p>
+              {edu.details && <p className="text-sm">{edu.details}</p>}
+              {edu.highlights && (
+                <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground marker:text-primary">
+                  {edu.highlights.map((h) => (
+                    <li key={h}>{h}</li>
+                  ))}
+                </ul>
+              )}
+              {edu.honors && (
+                <div className="space-y-2 pt-2">
+                  <p className="text-xs font-medium text-muted-foreground">
+                    Highest distinction (Matrícula de Honor) in {edu.honors.length} courses:
+                  </p>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {edu.honors.map((h) => (
+                      <li key={h}>
+                        <Badge className="text-[11px]">{h}</Badge>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </Card>
+          ))}
         </div>
 
-        {/* Education */}
-        <div>
-          <H3 className="mb-4 text-2xl font-bold">Education</H3>
-          <div className="rounded-lg border p-6 shadow">
-            <ul className="list-inside list-disc space-y-2">
-              <li>
-                <strong>Fulda University of Applied Sciences</strong> (2022 -
-                2023) - Study Abroad Program in Computer Science
+        <div className="space-y-6">
+          <h2 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+            <Award className="text-primary" /> Awards
+          </h2>
+          {awards.map((a) => (
+            <Card key={a.title} className="space-y-2 p-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="font-semibold">{a.title}</h3>
+                <span className="font-mono text-xs text-muted-foreground">{formatYearMonth(a.date)}</span>
+              </div>
+              <p className="text-gradient text-sm font-medium">{a.issuer}</p>
+              <p className="text-sm text-muted-foreground">{a.description}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section className="space-y-6">
+        <h2 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+          <BadgeCheck className="text-primary" /> Certifications
+        </h2>
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {certifications.map((c) => (
+            <li key={c.name}>
+              <Card className="flex h-full items-start justify-between gap-4 p-4">
+                <div>
+                  <p className="font-medium">{c.name}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {c.issuer} · {formatYearMonth(c.date)}
+                  </p>
+                </div>
+                {c.url && (
+                  <a
+                    href={c.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View credential: ${c.name}`}
+                    className="grid size-8 shrink-0 place-items-center rounded-full border transition-colors hover:bg-accent"
+                  >
+                    <ExternalLink className="size-3.5" />
+                  </a>
+                )}
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Languages + hobbies */}
+      <section className="grid gap-12 lg:grid-cols-2">
+        <div className="space-y-6">
+          <h2 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+            <Languages className="text-primary" /> Languages
+          </h2>
+          <ul className="space-y-3">
+            {profile.languages.map((l) => (
+              <li key={l.name} className="flex items-baseline justify-between gap-4 border-b pb-3">
+                <span className="font-medium">{l.name}</span>
+                <span className="text-right text-sm text-muted-foreground">{l.level}</span>
               </li>
-              <li>
-                <strong>Malaga University</strong> (2019 - 2023) - Software
-                Engineering Degree, Finished with honors at 19 courses and an
-                average grade of 9.18
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Skills */}
-        <div>
-          <H3 className="mb-4 text-2xl font-bold">Skills</H3>
-          <div className="flex flex-wrap gap-4">
-            {/* Hard Skills */}
-            <span className="flex items-center space-x-2 text-lg text-gray-700 dark:text-gray-300">
-              <Brain className="text-indigo-600 dark:text-indigo-300" />
-              <span>AI & Machine Learning</span>
-            </span>
-            <span className="flex items-center space-x-2 text-lg text-gray-700 dark:text-gray-300">
-              <Code className="text-blue-600 dark:text-blue-300" />
-              <span>Full Stack Development</span>
-            </span>
-            <span className="flex items-center space-x-2 text-lg text-gray-700 dark:text-gray-300">
-              <Github className="text-gray-900 dark:text-gray-300" />
-              <span>Version Control (Git)</span>
-            </span>
-
-            {/* Soft Skills */}
-            <span className="flex items-center space-x-2 text-lg text-gray-700 dark:text-gray-300">
-              <MessageCircle className="text-green-600 dark:text-green-300" />
-              <span>Effective Communication</span>
-            </span>
-            <span className="flex items-center space-x-2 text-lg text-gray-700 dark:text-gray-300">
-              <Users className="text-yellow-600 dark:text-yellow-300" />
-              <span>Experience in Leadership</span>
-            </span>
-            <span className="flex items-center space-x-2 text-lg text-gray-700 dark:text-gray-300">
-              <Lightbulb className="text-red-600 dark:text-red-300" />
-              <span>Critical Thinking</span>
-            </span>
-          </div>
-        </div>
-
-        {/* Stack */}
-        <div>
-          <H3 className="mb-4 text-2xl font-bold">Tech Stack</H3>
-          <div className="flex flex-wrap gap-6">
-            <div className="flex items-center space-x-2">
-              <SiJavascript className="text-yellow-500" size={30} />
-              <span>JavaScript</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiTypescript className="text-blue-500" size={30} />
-              <span>TypeScript</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiReact className="text-cyan-500" size={30} />
-              <span>React</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiAngular className="text-red-600" size={30} />
-              <span>Angular</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiNextdotjs size={30} />
-              <span>Next.js</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiSpringboot className="text-green-600" size={30} />
-              <span>Spring Boot</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiPython className="text-yellow-400" size={30} />
-              <span>Python</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiFlask className="" size={30} />
-              <span>Flask</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiPostgresql className="text-blue-600" size={30} />
-              <span>PostgreSQL</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiMongodb className="text-green-500" size={30} />
-              <span>MongoDB</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiDocker className="text-blue-500" size={30} />
-              <span>Docker</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiTensorflow className="text-orange-500" size={30} />
-              <span>TensorFlow</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiKeras className="text-red-500" size={30} />
-              <span>Keras</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiPytorch className="text-orange-500" size={30} />
-              <span>PyTorch</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiUnity size={30} />
-              <span>Unity</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiAmazonwebservices className="text-orange-500" size={30} />
-              <span>Amazon Web Services</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <SiAzuredevops className="text-blue-500" size={30} />
-              <span>Azure DevOps</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Certifications */}
-        <div>
-          <H3 className="mb-4 text-2xl font-bold">Certifications</H3>
-          <ul className="list-inside list-disc space-y-2">
-            <li>
-              <a
-                href="https://learn.nvidia.com/certificates?id=f77d961929ff4c9db4ef7998d6e597ea"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                Nvidia Certified Fundamentals of Deep Learning
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://learn.nvidia.com/certificates?id=fc4951aab7c6494982c0f4c9e867a64b"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                NVIDIA DLI Certificate – Accelerating End-to-End Data Science
-                Workflows
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://learn.nvidia.com/certificates?id=10865bbdeeae432da941845d1f318e37"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                Nvidia Certified Fundamentals of Accelerated Computing with CUDA
-                C/C++
-              </a>
-            </li>
+            ))}
           </ul>
         </div>
-
-        {/* Languages */}
-        <div>
-          <H3 className="mb-4 text-2xl font-bold">Languages</H3>
-          <ul className="list-inside list-disc space-y-2">
-            <li>English (Fluent)</li>
-            <li>Spanish (Native)</li>
-            <li>German (Conversational)</li>
-          </ul>
+        <div className="space-y-6">
+          <h2 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+            <Heart className="text-primary" /> Beyond the keyboard
+          </h2>
+          <p className="text-pretty text-muted-foreground">{profile.hobbies}</p>
         </div>
-
-        {/* Hobbies */}
-        <div>
-          <H3 className="mb-4 text-2xl font-bold">Hobbies</H3>
-          <p className="text-gray-600 dark:text-gray-300">
-            When I&apos;m not lifting weights at the gym or sharpening my boxing
-            skills, you can find me in the kitchen experimenting with new
-            recipes. I also love to dance, especially salsa and bachata, where
-            rhythm takes over. And when I&apos;m not moving to the beat or
-            perfecting a dish, I&apos;m probably battling with German
-            grammar—it&apos;s a fun challenge!
-          </p>
-        </div>
-      </div>
-    </Section>
+      </section>
+    </Container>
   );
 }
