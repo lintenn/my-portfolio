@@ -4,7 +4,7 @@ Guidance for AI coding agents (Claude Code, Codex, Copilot…) working in this r
 
 ## Project in one paragraph
 
-Next.js 16 (App Router) portfolio for Luis Miguel García Marín with an AI assistant. All facts live as typed data in `src/content/` and feed both the pages and the assistant's knowledge base (`src/lib/ai/knowledge.ts`), which is sent in full to the model on every request (long-context, no RAG). The chat endpoint is `src/app/api/chat/route.ts` (Vercel AI SDK 7 `streamText` + OpenAI Responses API + tools). Deployed on Vercel: `develop` → Preview, `main` → Production.
+Next.js 16 (App Router) portfolio for Luis Miguel García Marín, in English, Spanish and German (next-intl, `src/app/[locale]`), with an AI assistant. All facts live as typed data in `src/content/` and feed both the pages and the assistant's knowledge base (`src/lib/ai/knowledge.ts`), which is sent in full to the model on every request (long-context, no RAG). The chat endpoint is `src/app/api/chat/route.ts` (Vercel AI SDK 7 `streamText` + OpenAI Responses API + tools). Deployed on Vercel: `develop` → Preview, `main` → Production.
 
 ## Commands
 
@@ -25,8 +25,10 @@ npm run eval         # chatbot evals vs the real model — costs money, ask firs
 5. **Privacy & security.** Never log message contents. Never commit `.env*` (only `.env.example`). Don't read `.env.local`. Don't publish recruiter-only LinkedIn info (e.g. "open to work").
 6. **Next.js 16 specifics.** Request APIs (`cookies()`, `headers()`, `params`) are async; `middleware` is now `proxy`; lint with the ESLint CLI (`next lint` no longer exists). Consult `node_modules/next/dist/docs/` for version-matched docs.
 7. **AI SDK 7 specifics.** Messages are `UIMessage` with `parts`; use `convertToModelMessages`, `isStepCount`, `instructions` (not `system`), `toUIMessageStreamResponse`. Check types in `node_modules/ai/dist/index.d.ts` rather than relying on older examples.
-8. Style: TypeScript strict, functional React components, Tailwind utility classes with `cn()`, Prettier (110 cols). Match the surrounding code; comment the _why_, not the _what_.
-9. Git: work on `develop` or a feature branch; never push to `main` directly; releases go through the `release` skill.
+8. **Three languages.** Every UI string goes in `src/i18n/messages/{en,es,de}.json`; every translatable fact is an `{ en, es, de }` object in `src/content`. Use `Link`/`useRouter` from `@/i18n/navigation`, never `next/link`. Write natural translations, not literal ones.
+9. **Motion with care.** Interactions use `motion/react`/CSS, must respect `prefers-reduced-motion`, and hover effects are gated to fine pointers (`pointer-fine:`).
+10. Style: TypeScript strict, functional React components, Tailwind utility classes with `cn()`, Prettier (110 cols). Match the surrounding code; comment the _why_, not the _what_.
+11. Git: work on `develop` or a feature branch; never push to `main` directly; releases go through the `release` skill.
 
 ## Claude Code extras
 

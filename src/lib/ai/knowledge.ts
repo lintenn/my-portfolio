@@ -1,16 +1,15 @@
+import { getContent, navigation, site, type WorkMode, type EmploymentType } from "@/content";
 import {
-  awards,
-  certifications,
-  education,
-  experience,
-  navigation,
-  profile,
-  projects,
-  site,
-  skillGroups,
-  softSkills,
-} from "@/content";
-import { formatDuration, formatPeriod, formatYearMonth, monthsBetween, yearsOfExperience } from "@/lib/dates";
+  formatDuration,
+  formatPeriod,
+  formatYearMonth,
+  formatYearRange,
+  monthsBetween,
+  yearsOfExperience,
+} from "@/lib/dates";
+
+const workModes: Record<WorkMode, string> = { onSite: "On-site", hybrid: "Hybrid", remote: "Remote" };
+const employmentTypes: Record<EmploymentType, string> = { fullTime: "Full-time", internship: "Internship" };
 
 /**
  * Serializes the typed site content into a single Markdown document.
@@ -19,10 +18,15 @@ import { formatDuration, formatPeriod, formatYearMonth, monthsBetween, yearsOfEx
  * (a few thousand tokens), so we send all of it with every request instead of
  * retrieving chunks from a vector database. It is also served at `/llms.txt`.
  *
+ * It is always built in English (one canonical, cacheable prompt); the model
+ * translates on the fly into the visitor's language.
+ *
  * Keep the output deterministic (no timestamps, stable ordering): an identical
  * prompt prefix is what lets the provider reuse its prompt cache.
  */
 export function buildKnowledgeBase(now: Date = new Date()): string {
+  const c = getContent("en");
+  const { profile } = c;
   const years = yearsOfExperience(profile.careerStart, now);
   const lines: string[] = [];
   const push = (...l: string[]) => lines.push(...l);
@@ -38,12 +42,12 @@ export function buildKnowledgeBase(now: Date = new Date()): string {
   push(...profile.summary.flatMap((p) => [p, ""]));
 
   push("## Experience", "");
-  for (const job of experience) {
+  for (const job of c.experience) {
     const months = monthsBetween(job.start, job.end ?? now);
     push(
       `### ${job.role} — ${job.company}`,
       "",
-      `${formatPeriod(job.start, job.end)} (${formatDuration(months)}) · ${job.location} · ${job.workMode} · ${job.employmentType}`,
+      `${formatPeriod(job.start, job.end, "en", "Present")} (${formatDuration(months)}) · ${job.location} · ${workModes[job.workMode]} · ${employmentTypes[job.employmentType]}`,
       "",
       job.summary,
       "",
@@ -54,10 +58,10 @@ export function buildKnowledgeBase(now: Date = new Date()): string {
     );
   }
 
-  push("## Projects", "", "More details and images at /projects.", "");
-  for (const project of projects) {
+  push("## Projects", "", "Newest first. More details and images at /projects.", "");
+  for (const project of c.projects) {
     push(
-      `### ${project.title} (${project.period})`,
+      `### ${project.title} (${formatYearRange(project.start, project.end, "Present")})`,
       "",
       project.description,
       "",
@@ -71,11 +75,11 @@ export function buildKnowledgeBase(now: Date = new Date()): string {
   }
 
   push("## Skills", "");
-  for (const group of skillGroups) push(`- ${group.name}: ${group.skills.join(", ")}`);
-  push(`- Soft skills: ${softSkills.join(", ")}`, "");
+  for (const group of c.skillGroups) push(`- ${group.name}: ${group.skills.join(", ")}`);
+  push(`- Soft skills: ${c.softSkills.join(", ")}`, "");
 
   push("## Education", "");
-  for (const edu of education) {
+  for (const edu of c.education) {
     push(`### ${edu.degree} — ${edu.institution} (${edu.start}–${edu.end})`, "");
     if (edu.details) push(edu.details, "");
     for (const h of edu.highlights ?? []) push(`- ${h}`);
@@ -84,13 +88,15 @@ export function buildKnowledgeBase(now: Date = new Date()): string {
   }
 
   push("## Certifications", "");
-  for (const c of certifications) {
-    push(`- ${c.name} — ${c.issuer} (${formatYearMonth(c.date)})${c.url ? ` · ${c.url}` : ""}`);
+  for (const cert of c.certifications) {
+    push(
+      `- ${cert.name} — ${cert.issuer} (${formatYearMonth(cert.date)})${cert.url ? ` · ${cert.url}` : ""}`,
+    );
   }
   push("");
 
   push("## Awards", "");
-  for (const a of awards) push(`- ${a.title} — ${a.issuer} (${formatYearMonth(a.date)}): ${a.description}`);
+  for (const a of c.awards) push(`- ${a.title} — ${a.issuer} (${formatYearMonth(a.date)}): ${a.description}`);
   push("");
 
   push("## Languages", "");
@@ -100,14 +106,15 @@ export function buildKnowledgeBase(now: Date = new Date()): string {
   push("## Hobbies", "", profile.hobbies, "");
 
   push("## Website pages", "");
-  for (const page of navigation) push(`- [${page.label}](${page.href}): ${page.description}`);
-  push(`- [Privacy policy](/privacy): how chat messages and contact data are handled`);
+  for (const page of navigation) push(`- [${page.key}](${page.href}): ${page.description}`);
+  push(`- [privacy](/privacy): how chat messages and contact data are handled`);
+  push(`- The site is available in English, Spanish and German (language switcher in the header).`);
   push(`- Source code of this website: ${site.repo}`, "");
 
   push(
     "## About this website",
     "",
-    "Built with Next.js, React, TypeScript and Tailwind CSS, deployed on Vercel. The AI assistant uses the Vercel AI SDK with an OpenAI model. All the content above is sent to the model as context (no vector database needed at this size), with prompt caching, tool calling to render rich UI cards, rate limiting and automated evals.",
+    "Built with Next.js, React, TypeScript and Tailwind CSS, translated with next-intl, deployed on Vercel. The AI assistant uses the Vercel AI SDK with an OpenAI model. All the content above is sent to the model as context (no vector database needed at this size), with prompt caching, tool calling to render rich UI cards, rate limiting and automated evals.",
   );
 
   return lines.join("\n").trim() + "\n";

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { locales } from "@/i18n/routing";
 import { chatConfig } from "./config";
 
 /** Shape check only; deep validation of each message is done by `validateUIMessages`. */
@@ -13,11 +14,13 @@ export const chatRequestSchema = z.object({
     )
     .min(1)
     .max(100),
+  /** UI language of the page the visitor is chatting from. */
+  locale: z.enum(locales).catch("en"),
 });
 
 type RequestMessage = z.infer<typeof chatRequestSchema>["messages"][number];
 
-export type PrepareResult<T> = { ok: true; messages: T[] } | { ok: false; error: string };
+export type PrepareResult<T> = { ok: true; messages: T[] } | { ok: false; error: "lastNotUser" | "tooLong" };
 
 function textLength(message: RequestMessage): number {
   return message.parts.reduce(
@@ -35,12 +38,12 @@ function textLength(message: RequestMessage): number {
 export function prepareMessages<T extends RequestMessage>(messages: T[]): PrepareResult<T> {
   const last = messages.at(-1);
   if (!last || last.role !== "user") {
-    return { ok: false, error: "The last message must be a user message." };
+    return { ok: false, error: "lastNotUser" };
   }
 
   const tooLong = messages.some((m) => m.role === "user" && textLength(m) > chatConfig.maxUserMessageChars);
   if (tooLong) {
-    return { ok: false, error: `Messages are limited to ${chatConfig.maxUserMessageChars} characters.` };
+    return { ok: false, error: "tooLong" };
   }
 
   let window = messages.slice(-chatConfig.maxHistoryMessages);

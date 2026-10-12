@@ -4,7 +4,7 @@
   "private": true,
   "description": "AI-powered portfolio of Luis Miguel García Marín, built with Next.js and the Vercel AI SDK.",
   "engines": {
-    "node": ">=22"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "next dev",
@@ -32,7 +32,9 @@
     "ai": "^7.0.137",
     "clsx": "^2.1.1",
     "lucide-react": "^1.55.0",
+    "motion": "^14.1.0",
     "next": "^16.4.0",
+    "next-intl": "^4.14.9",
     "next-themes": "^0.4.6",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
@@ -58,5 +60,14 @@
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "vitest": "^5.0.3"
+  },
+  "overrides": {
+    "@tailwindcss/typography": {
+      "postcss-selector-parser": "^7.1.6"
+    }
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "unrs-resolver": true
   }
 }

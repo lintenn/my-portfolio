@@ -18,15 +18,15 @@ Read the actual diffs of the triggering files before writing anything. Never doc
 
 ## 2. Map changes → docs
 
-| You changed…                                                                 | Update                                                          |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `src/lib/ai/**`, `src/app/api/chat/**`, `src/components/chat/**`, `evals/**` | `docs/CHATBOT.md` (+ `docs/AI-CONCEPTS.es.md` if a new concept) |
-| `src/content/types.ts`, routes in `src/app/**`                               | `docs/ARCHITECTURE.md`, `docs/CONTENT.md`                       |
-| `.env.example`, `next.config.ts`, `.github/workflows/**`                     | `docs/DEPLOYMENT.md`                                            |
-| `.claude/**`, `.githooks/**`, lint/format/test config, `scripts/check-docs`  | `docs/DEVELOPMENT.md`, `AGENTS.md`                              |
-| `package.json` (deps, scripts)                                               | `README.md` (stack, scripts), `docs/ARCHITECTURE.md`            |
-| A significant design decision (new service, replaced library, new pattern)   | New ADR in `docs/adr/` (copy the format of existing ones)       |
-| **Anything functional**                                                      | `CHANGELOG.md` → `## [Unreleased]`                              |
+| You changed…                                                                           | Update                                                          |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `src/lib/ai/**`, `src/app/api/chat/**`, `src/components/chat/**`, `evals/**`           | `docs/CHATBOT.md` (+ `docs/AI-CONCEPTS.es.md` if a new concept) |
+| `src/content/types.ts`, `src/i18n/**`, `src/proxy.ts`, routes in `src/app/[locale]/**` | `docs/ARCHITECTURE.md`, `docs/CONTENT.md`                       |
+| `.env.example`, `next.config.ts`, `.github/workflows/**`                               | `docs/DEPLOYMENT.md`                                            |
+| `.claude/**`, `.githooks/**`, lint/format/test config, `scripts/check-docs`            | `docs/DEVELOPMENT.md`, `AGENTS.md`                              |
+| `package.json` (deps, scripts)                                                         | `README.md` (stack, scripts), `docs/ARCHITECTURE.md`            |
+| A significant design decision (new service, replaced library, new pattern)             | New ADR in `docs/adr/` (copy the format of existing ones)       |
+| **Anything functional**                                                                | `CHANGELOG.md` → `## [Unreleased]`                              |
 
 The mapping is enforced by `scripts/check-docs.mjs`; if you add a new area of code, add a rule there too.
 

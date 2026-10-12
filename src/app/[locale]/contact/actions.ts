@@ -1,23 +1,18 @@
 "use server";
 
+import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { z } from "zod";
+import { routing } from "@/i18n/routing";
 
-const contactSchema = z.object({
-  name: z.string().trim().min(2, "Please tell me your name.").max(100),
-  email: z.email("Please enter a valid email address.").max(200),
-  message: z
-    .string()
-    .trim()
-    .min(10, "Your message is a bit short.")
-    .max(5000, "Please keep it under 5000 characters."),
-});
+type Field = "name" | "email" | "message";
 
 export type ContactFormState = {
   status: "idle" | "success" | "error";
   message?: string;
-  fieldErrors?: Partial<Record<keyof z.infer<typeof contactSchema>, string>>;
+  fieldErrors?: Partial<Record<Field, string>>;
   /** Echo the values back so the form keeps them after a failed submission. */
-  values?: Partial<Record<keyof z.infer<typeof contactSchema>, string>>;
+  values?: Partial<Record<Field, string>>;
 };
 
 /**
@@ -28,6 +23,16 @@ export async function sendContactMessage(
   _prev: ContactFormState,
   formData: FormData,
 ): Promise<ContactFormState> {
+  const rawLocale = String(formData.get("locale") ?? "");
+  const locale = hasLocale(routing.locales, rawLocale) ? rawLocale : routing.defaultLocale;
+  const t = await getTranslations({ locale, namespace: "Contact" });
+
+  const schema = z.object({
+    name: z.string().trim().min(2, t("errors.name")).max(100),
+    email: z.email(t("errors.email")).max(200),
+    message: z.string().trim().min(10, t("errors.messageShort")).max(5000, t("errors.messageLong")),
+  });
+
   const raw = {
     name: String(formData.get("name") ?? ""),
     email: String(formData.get("email") ?? ""),
@@ -35,44 +40,38 @@ export async function sendContactMessage(
   };
 
   // Honeypot: real visitors never see or fill this field; naive bots do.
-  if (formData.get("company")) {
-    return { status: "success", message: "Thanks for your message! I'll get back to you soon." };
-  }
+  if (formData.get("company")) return { status: "success", message: t("success") };
 
-  const parsed = contactSchema.safeParse(raw);
+  const parsed = schema.safeParse(raw);
   if (!parsed.success) {
     const fieldErrors: ContactFormState["fieldErrors"] = {};
     for (const issue of parsed.error.issues) {
-      const key = issue.path[0] as keyof typeof raw;
+      const key = issue.path[0] as Field;
       fieldErrors[key] ??= issue.message;
     }
-    return { status: "error", message: "Please review the highlighted fields.", fieldErrors, values: raw };
+    return { status: "error", message: t("errors.review"), fieldErrors, values: raw };
   }
 
   const formId = process.env.FORMSPREE_ENDPOINT;
   if (!formId) {
     console.error("[contact] FORMSPREE_ENDPOINT is not set");
-    return {
-      status: "error",
-      message: "The contact form is not configured right now. Please email me instead.",
-      values: raw,
-    };
+    return { status: "error", message: t("errors.notConfigured"), values: raw };
   }
 
   try {
     const response = await fetch(`https://formspree.io/f/${formId}`, {
       method: "POST",
       headers: { Accept: "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify({ ...parsed.data, _subject: `Portfolio contact from ${parsed.data.name}` }),
+      body: JSON.stringify({
+        ...parsed.data,
+        language: locale,
+        _subject: `Portfolio contact from ${parsed.data.name}`,
+      }),
     });
     if (!response.ok) throw new Error(`Formspree responded ${response.status}`);
-    return { status: "success", message: "Thanks for your message! I'll get back to you soon." };
+    return { status: "success", message: t("success") };
   } catch (error) {
     console.error("[contact] failed to send", error);
-    return {
-      status: "error",
-      message: "Oops, the message could not be sent. Please try again or email me directly.",
-      values: raw,
-    };
+    return { status: "error", message: t("errors.failed"), values: raw };
   }
 }

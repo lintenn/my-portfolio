@@ -11,11 +11,11 @@ sequenceDiagram
   participant R as /api/chat
   participant L as Rate limiter
   participant M as OpenAI (Responses API)
-  B->>R: POST { messages: UIMessage[] }
+  B->>R: POST { messages: UIMessage[], locale }
   R->>L: limit(ip) + limit("global")
   L-->>R: ok / 429 + Retry-After
   R->>R: Zod shape check → policy (last=user, ≤1000 chars, last 12 msgs) → validateUIMessages
-  R->>M: instructions (rules + knowledge base) + messages + tools (stream)
+  R->>M: instructions (rules + knowledge base + site language) + messages + tools (stream)
   M-->>R: function_call showProjects({technology})
   R->>R: execute tool (static data, no side effects)
   R->>M: function_call_output
@@ -33,9 +33,10 @@ Code map:
 | `src/lib/ai/config.ts`            | Tunables (model id, effort, limits, cache key)                                                                                |
 | `src/lib/ai/knowledge.ts`         | Serializes `src/content` → Markdown knowledge base (also `/llms.txt`)                                                         |
 | `src/lib/ai/prompt.ts`            | System prompt: persona + rules + `<knowledge>`                                                                                |
-| `src/lib/ai/tools.ts`             | Tool definitions (Zod input schemas) and the `ChatUIMessage` type                                                             |
+| `src/lib/ai/tools.ts`             | `createChatTools(locale)`: tool definitions (Zod input schemas), outputs in the page language, and the `ChatUIMessage` type   |
 | `src/lib/ai/request.ts`           | Request schema, conversation policy, client IP                                                                                |
-| `src/lib/ai/errors.ts`            | Provider error classification → honest visitor messages                                                                       |
+| `src/lib/ai/errors.ts`            | Provider error classification → honest visitor messages in the page language                                                  |
+| `src/lib/ai/messages.ts`          | API-side translated strings (`ChatApi` namespace of the message catalogues)                                                   |
 | `src/lib/rate-limit.ts`           | Upstash sliding-window limiter with in-memory fallback                                                                        |
 | `src/components/chat/*`           | `ChatProvider` (state + persistence), `ChatWidget` (UI), tool cards, Markdown                                                 |
 | `evals/` + `scripts/eval-chat.ts` | Eval suite                                                                                                                    |
@@ -66,6 +67,16 @@ OpenAI automatically caches prompt **prefixes** (≥ 1024 tokens) and bills cach
 - `promptCacheKey: "portfolio-assistant-v2"` routes requests with the same prefix to the same cache.
 
 Check it works: the `chat.completed` log line reports `cachedInputTokens`.
+
+## Languages
+
+The site is in English, Spanish and German, and the assistant follows suit:
+
+- The **knowledge base is always English**, so the large prompt prefix is identical (and cached) for every visitor.
+- The client sends the page `locale` with each message. It goes at the **very end** of the system prompt (`Site language: Spanish.`), after the cacheable part.
+- Rule 2 of the prompt: reply in the language of the visitor's latest message; if ambiguous, use the site language. So a German page visitor writing in English gets English.
+- Tool outputs (project titles/descriptions, periods) and API errors (rate limit, quota…) come back in the page language, from the translated content and the `ChatApi` messages.
+- The model writes links without a language prefix (`/projects`); the chat renders them with the locale-aware `Link`, which turns them into `/es/projects` on the Spanish site.
 
 ## Tools and generative UI
 

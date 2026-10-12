@@ -1,6 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
+import { useLocale } from "next-intl";
 import { createContext, use, useEffect, useRef, useState, type ReactNode } from "react";
 import type { ChatUIMessage } from "@/lib/ai/tools";
 
@@ -15,6 +16,8 @@ interface ChatWidgetContext {
   closeChat: () => void;
   /** Opens the chat and sends `question` right away. */
   ask: (question: string) => void;
+  /** Regenerates the last answer (after an error). */
+  retry: () => void;
   reset: () => void;
 }
 
@@ -26,10 +29,12 @@ const Context = createContext<ChatWidgetContext | null>(null);
  * it is mirrored to sessionStorage so it also survives a reload.
  */
 export function ChatProvider({ children }: { children: ReactNode }) {
+  // The page language travels with every request: tool cards and errors come back in it.
+  const locale = useLocale();
   const chat = useChat<ChatUIMessage>();
   const [isOpen, setIsOpen] = useState(false);
   const restored = useRef(false);
-  const { messages, setMessages, status, sendMessage, stop, clearError } = chat;
+  const { messages, setMessages, status, sendMessage, regenerate, stop, clearError } = chat;
 
   // Restore once on mount (sessionStorage is not available during SSR).
   useEffect(() => {
@@ -63,8 +68,12 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       setIsOpen(true);
       if (!busy && question.trim()) {
         clearError();
-        void sendMessage({ text: question.trim() });
+        void sendMessage({ text: question.trim() }, { body: { locale } });
       }
+    },
+    retry: () => {
+      clearError();
+      void regenerate({ body: { locale } });
     },
     reset: () => {
       void stop();

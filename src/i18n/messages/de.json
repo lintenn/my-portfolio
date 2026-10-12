@@ -1,0 +1,238 @@
+{
+  "Metadata": {
+    "keywords": "Softwareentwickler, KI-Ingenieur, Full-Stack, LLM, Next.js, React, Málaga"
+  },
+  "Nav": {
+    "home": "Start",
+    "about": "Über mich",
+    "projects": "Projekte",
+    "contact": "Kontakt",
+    "main": "Hauptnavigation",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "skipToContent": "Zum Inhalt springen",
+    "language": "Sprache",
+    "askAi": "Frag meine KI",
+    "toggleTheme": "Farbschema wechseln",
+    "logoHint": "Zur Startseite"
+  },
+  "Footer": {
+    "builtWith": "Gebaut mit Next.js, dem Vercel AI SDK und viel ☕",
+    "sourceCode": "Quellcode",
+    "privacy": "Datenschutz",
+    "madeIn": "Mit Liebe in Málaga gemacht"
+  },
+  "Common": {
+    "present": "Heute",
+    "current": "Aktuell",
+    "technologies": "Technologien",
+    "workMode": {
+      "onSite": "Vor Ort",
+      "hybrid": "Hybrid",
+      "remote": "Remote"
+    },
+    "employmentType": {
+      "fullTime": "Vollzeit",
+      "internship": "Praktikum"
+    }
+  },
+  "Home": {
+    "greeting": "Hallo, ich bin",
+    "roles": [
+      "Softwareentwickler",
+      "KI-Ingenieur",
+      "Full-Stack-Entwickler",
+      "Computer-Vision-Tüftler",
+      "Salsatänzer 💃"
+    ],
+    "photoAlt": "Porträt von {name}",
+    "photoHint": "Psst… klick mich!",
+    "easterEgg": "Okay, okay, du hast mich erwischt 😄 Lieber mit meiner KI-Version plaudern?",
+    "easterEggCta": "Los geht's",
+    "ctaWork": "Meine Projekte",
+    "ctaAbout": "Über mich",
+    "ask": {
+      "eyebrow": "KI-Assistent",
+      "title": "Neugierig? Frag einfach.",
+      "description": "Meine KI-Version kennt meine Erfahrung, Projekte und Skills, antwortet in deiner Sprache und bringt dich zur richtigen Seite.",
+      "label": "Frag meinen KI-Assistenten",
+      "placeholder": "Frag mich etwas – z. B. „Welche Erfahrung hast du mit LLMs?“",
+      "submit": "Fragen"
+    },
+    "stats": {
+      "years": "Jahre Softwareentwicklung",
+      "projects": "vorgestellte Projekte",
+      "honors": "Fächer mit Bestnote",
+      "certifications": "Zertifikate"
+    },
+    "experience": {
+      "eyebrow": "Erfahrung",
+      "title": "Von Computer Vision zu generativer KI",
+      "description": "Über {years} Jahre KI-gestützte Produkte – vom Praktikum in Deutschland bis zu Generative-AI-Projekten für Enterprise-Kunden in Spanien.",
+      "cta": "Gesamte Erfahrung"
+    },
+    "projects": {
+      "eyebrow": "Projekte",
+      "title": "Ausgewählte Arbeiten",
+      "cta": "Alle Projekte"
+    },
+    "marquee": "Technologien, mit denen ich arbeite",
+    "how": {
+      "eyebrow": "Unter der Haube",
+      "title": "So funktioniert der Assistent",
+      "description": "Eine kleine, produktionsreife LLM-App. Die vollständige Beschreibung mit allen Architekturentscheidungen steht im Repository.",
+      "cta": "Code & Doku auf GitHub ansehen",
+      "items": {
+        "source": {
+          "title": "Eine einzige Quelle der Wahrheit",
+          "body": "Alle Inhalte liegen in typisierten TypeScript-Dateien, in drei Sprachen. Dieselben Daten rendern diese Seiten und werden zum Wissen des Assistenten – sie können also nie auseinanderlaufen."
+        },
+        "context": {
+          "title": "Antworten mit vollem Kontext",
+          "body": "Die gesamte Wissensbasis passt ins Kontextfenster des Modells. Statt einer RAG-Pipeline mit Vektordatenbank sieht das Modell einfach alles – einfacher und präziser."
+        },
+        "caching": {
+          "title": "Prompt Caching",
+          "body": "Der große, statische Teil des Prompts steht vorne, damit der Anbieter ihn cachen kann: Folgefragen nutzen ihn zu einem Bruchteil der Kosten und antworten schneller."
+        },
+        "tools": {
+          "title": "Tool Calling & Generative UI",
+          "body": "Das Modell kann typisierte Tools aufrufen, um Projekt- oder Kontaktkarten anzuzeigen – gerendert als React-Komponenten im Chat, während die Antwort hereinströmt."
+        },
+        "guardrails": {
+          "title": "Leitplanken",
+          "body": "Eingabevalidierung, ein gleitendes Verlaufsfenster, Rate Limits pro IP und global, Ausgabelimits und ein gehärteter System-Prompt halten ihn sicher und günstig."
+        },
+        "evals": {
+          "title": "Evaluiert statt geschätzt",
+          "body": "Eine Eval-Suite prüft Faktentreue, Sprache, Tool-Nutzung und Resistenz gegen Prompt Injection, bevor Änderungen live gehen."
+        }
+      }
+    }
+  },
+  "About": {
+    "metaDescription": "Erfahrung, Ausbildung, Skills und Zertifikate von {name}.",
+    "eyebrow": "Über mich",
+    "title": "Entwickler, Macher, lebenslang Lernender",
+    "photoAlt": "Porträt von {name}",
+    "careerEyebrow": "Laufbahn",
+    "experience": "Berufserfahrung",
+    "skillsEyebrow": "Werkzeugkasten",
+    "skills": "Skills",
+    "softSkills": "Soft Skills",
+    "education": "Ausbildung",
+    "honorsIntro": "Höchste Auszeichnung (Matrícula de Honor) in {count} Fächern:",
+    "awards": "Auszeichnungen",
+    "certifications": "Zertifikate",
+    "viewCredential": "Nachweis ansehen: {name}",
+    "languages": "Sprachen",
+    "hobbies": "Abseits der Tastatur"
+  },
+  "Projects": {
+    "metaDescription": "KI-, Computer-Vision-, Web- und Mobile-Projekte von {name}.",
+    "eyebrow": "Projekte",
+    "title": "Was ich gebaut habe",
+    "description": "Eine Mischung aus KI-Forschung, Produkten und Hackathons, die neuesten zuerst. Der Großteil meiner beruflichen Arbeit unterliegt einer Geheimhaltungsvereinbarung – frag den Assistenten nach einer Zusammenfassung.",
+    "challenges": "Herausforderungen",
+    "results": "Ergebnisse",
+    "sourceCode": "Quellcode von {title} auf GitHub",
+    "askAi": "Frag die KI danach",
+    "askAiPrompt": "Erzähl mir mehr über das Projekt {title}",
+    "moreOnGithub": "Mehr auf GitHub",
+    "carousel": "Bilder von {title}",
+    "previous": "Vorheriges Bild",
+    "next": "Nächstes Bild",
+    "showImage": "Bild {n} anzeigen",
+    "imageAlt": "{title} – Bild {n} von {total}"
+  },
+  "Contact": {
+    "metaDescription": "Schreib mir zu Jobangeboten, Kooperationen oder einfach, um Hallo zu sagen.",
+    "eyebrow": "Kontakt",
+    "title": "Lass uns reden",
+    "description": "Jobangebote, Kooperationen oder eine Frage zu einem meiner Projekte – ich melde mich so schnell wie möglich.",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "privacyNote": "Deine Daten werden nur für die Antwort verwendet. Siehe <link>Datenschutzerklärung</link>.",
+    "success": "Danke für deine Nachricht! Ich melde mich bald.",
+    "errors": {
+      "name": "Bitte nenne mir deinen Namen.",
+      "email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+      "messageShort": "Deine Nachricht ist etwas kurz.",
+      "messageLong": "Bitte bleib unter 5000 Zeichen.",
+      "review": "Bitte überprüfe die markierten Felder.",
+      "notConfigured": "Das Kontaktformular ist gerade nicht verfügbar. Bitte schreib mir eine E-Mail.",
+      "failed": "Hoppla, die Nachricht konnte nicht gesendet werden. Bitte versuch es erneut oder schreib mir direkt eine E-Mail."
+    }
+  },
+  "Privacy": {
+    "title": "Datenschutzerklärung",
+    "metaDescription": "Wie diese Website Chatnachrichten, Daten aus dem Kontaktformular und Analysen verarbeitet.",
+    "lastUpdated": "Zuletzt aktualisiert: {date}",
+    "intro": "Dies ist das persönliche Portfolio von {name} mit Sitz in {location}. Es soll so wenige Daten wie möglich erfassen. Diese Seite erklärt genau, was verarbeitet wird, warum und von wem.",
+    "noAccountsTitle": "Keine Konten, keine Werbe-Cookies",
+    "noAccounts": "Du brauchst kein Konto, um diese Website zu nutzen, und sie verwendet keine Werbe- oder seitenübergreifenden Tracking-Cookies. Dein Farbschema und dein aktueller Chatverlauf werden nur in deinem eigenen Browser gespeichert. Deine Sprachwahl wird mit einem kleinen funktionalen Cookie (NEXT_LOCALE) gespeichert. Nichts davon wird zum Tracking verwendet.",
+    "chatTitle": "KI-Assistent",
+    "chat1": "Nachrichten, die du in den Chat schreibst, werden an <strong>OpenAI</strong> gesendet, um die Antworten zu erzeugen. Die Anfragen erfolgen mit deaktivierter Speicherung (<code>store: false</code>) und werden gemäß den API-Bedingungen von OpenAI nicht zum Training von Modellen verwendet. OpenAI kann API-Daten für begrenzte Zeit zur Missbrauchserkennung aufbewahren.",
+    "chat2": "Um Missbrauch zu verhindern und Kosten zu kontrollieren, wird deine IP-Adresse für Nutzungslimits verwendet. An OpenAI wird nur ein nicht umkehrbarer Hash davon als anonyme Sicherheitskennung übermittelt. Ist das Rate Limiting über <strong>Upstash</strong> aktiviert, laufen die IP-bezogenen Zähler nach wenigen Minuten automatisch ab (beim globalen Zähler täglich).",
+    "chat3": "Technische Logs erfassen Token-Verbrauch und Fehler, nicht den Inhalt deiner Unterhaltung.",
+    "chat4": "Bitte teile im Chat keine sensiblen persönlichen Daten. Die Antworten werden von einer KI erzeugt und können Fehler enthalten.",
+    "contactTitle": "Kontaktformular",
+    "contact": "Wenn du das <link>Kontaktformular</link> nutzt, werden dein Name, deine E-Mail-Adresse und deine Nachricht über <strong>Formspree</strong> an mich übermittelt. Ich verwende sie nur, um dir zu antworten, und lösche sie, sobald sie nicht mehr benötigt werden.",
+    "hostingTitle": "Hosting und Analysen",
+    "hosting": "Die Website wird bei <strong>Vercel</strong> gehostet, das übliche Server-Logs (z. B. IP-Adresse, Browser und aufgerufene Seiten) verarbeitet, um den Dienst bereitzustellen und abzusichern. Vercel Web Analytics und Speed Insights liefern aggregierte, cookielose Besuchs- und Performance-Statistiken, die keine einzelnen Besucher identifizieren.",
+    "rightsTitle": "Deine Rechte",
+    "rights": "Nach der DSGVO kannst du Auskunft über deine personenbezogenen Daten verlangen, sie berichtigen oder löschen lassen oder der Verarbeitung widersprechen. Schreib mir einfach an <email>{email}</email>. Du kannst dich außerdem bei der spanischen Datenschutzbehörde (AEPD) beschweren.",
+    "changesTitle": "Änderungen",
+    "changes": "Wenn sich diese Erklärung ändert, wird die neue Fassung mit aktualisiertem Datum auf dieser Seite veröffentlicht."
+  },
+  "NotFound": {
+    "title": "Diese Seite gibt es nicht",
+    "description": "Vielleicht wurde sie verschoben oder der Link ist falsch. Du kannst zur Startseite zurückkehren – oder den KI-Assistenten fragen, was du gesucht hast.",
+    "back": "Zur Startseite"
+  },
+  "Chat": {
+    "title": "{name} (KI)",
+    "subtitle": "Meine KI-Version · antwortet in deiner Sprache",
+    "typing": "Schreibt…",
+    "dialogLabel": "Chat mit der KI-Version von {name}",
+    "open": "KI-Assistenten öffnen",
+    "launcher": "Frag meine KI",
+    "nudge": "Fragen? Frag mich einfach 👋",
+    "dismiss": "Schließen",
+    "close": "Schließen (Esc)",
+    "clear": "Unterhaltung löschen",
+    "greeting": "Hallo! Ich bin {name} – na ja, meine KI-Version 👋",
+    "intro": "Frag mich alles über meine Erfahrung, Projekte oder Skills – auf Deutsch, Englisch, Spanisch oder in jeder anderen Sprache.",
+    "inputLabel": "Deine Nachricht",
+    "placeholder": "Frag mich etwas…",
+    "send": "Senden (Enter)",
+    "stop": "Stopp",
+    "thinking": "Denkt nach",
+    "retry": "Erneut versuchen",
+    "disclaimer": "KI kann Fehler machen – prüfe wichtige Angaben. Siehe <link>Datenschutzerklärung</link>.",
+    "lookingUpProjects": "Suche Projekte…",
+    "preparingContact": "Bereite Kontaktmöglichkeiten vor…",
+    "noProjects": "Keine passenden Projekte.",
+    "contactTitle": "Kontakt mit {name} aufnehmen",
+    "openContactForm": "Kontaktformular öffnen",
+    "genericError": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
+  },
+  "ChatApi": {
+    "notConfigured": "Der Assistent ist gerade nicht konfiguriert.",
+    "tooManyRequests": "Zu viele Nachrichten. Bitte warte ein paar Minuten und versuch es erneut.",
+    "invalidRequest": "Ungültige Anfrage.",
+    "lastNotUser": "Die letzte Nachricht muss vom Nutzer stammen.",
+    "tooLong": "Nachrichten sind auf {max} Zeichen begrenzt.",
+    "quota": "Der Assistent macht gerade Pause (sein KI-Budget ist aufgebraucht). Bitte versuch es später erneut oder schreib mir über das Kontaktformular.",
+    "rateLimit": "Der Assistent ist gerade sehr beschäftigt. Bitte versuch es in einer Minute erneut.",
+    "auth": "Der Assistent ist vorübergehend nicht verfügbar. Bitte nutze in der Zwischenzeit das Kontaktformular.",
+    "unavailable": "Der KI-Anbieter hat gerade Probleme. Bitte versuch es gleich noch einmal.",
+    "unknown": "Entschuldigung, bei mir ist etwas schiefgelaufen. Bitte versuch es gleich noch einmal."
+  },
+  "Og": {
+    "cta": "✨ Frag meinen KI-Assistenten alles über mich"
+  }
+}

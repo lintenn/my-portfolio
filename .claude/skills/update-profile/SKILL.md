@@ -17,7 +17,7 @@ All facts live in typed data files under `src/content/`. Pages, the chatbot's kn
 
 ## Rules
 
-1. **Translate to English** (the site is in English; the chatbot answers in the visitor's language on its own).
+1. **Write all three languages.** Translatable fields are `{ en, es, de }` objects (`L` in `src/content/types.ts`); TypeScript fails if one is missing. Write natural English, Spanish (Spain) and German (informal) — not literal translations. Language-neutral values (company names, technologies) stay plain strings.
 2. **Never invent** numbers, clients, dates or technologies. If the source is ambiguous, ask.
 3. Dates are `"YYYY-MM"`. Omit `end` for the current job. Durations and "years of experience" are computed — don't write them by hand.
 4. Lists are ordered **most recent first**.

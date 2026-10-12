@@ -1,4 +1,6 @@
 import { APICallError, RetryError } from "ai";
+import type { Locale } from "@/i18n/routing";
+import { chatApiMessages } from "./messages";
 
 export type ProviderErrorKind = "quota" | "rate-limit" | "auth" | "unavailable" | "unknown";
 
@@ -30,11 +32,15 @@ export function classifyProviderError(error: unknown): { kind: ProviderErrorKind
   return { kind: "unknown", statusCode };
 }
 
-export const visitorErrorMessages: Record<ProviderErrorKind, string> = {
-  quota:
-    "The assistant is taking a break right now (its AI budget is used up). Please try again later, or reach me through the contact form.",
-  "rate-limit": "The assistant is very busy right now. Please try again in a minute.",
-  auth: "The assistant is temporarily unavailable. Please use the contact form in the meantime.",
-  unavailable: "The AI provider is having issues right now. Please try again in a moment.",
-  unknown: "Sorry, something went wrong on my side. Please try again in a moment.",
-};
+const MESSAGE_KEYS = {
+  quota: "quota",
+  "rate-limit": "rateLimit",
+  auth: "auth",
+  unavailable: "unavailable",
+  unknown: "unknown",
+} as const satisfies Record<ProviderErrorKind, keyof (typeof chatApiMessages)["en"]>;
+
+/** Honest, translated message for the visitor (texts live in messages/*.json → ChatApi). */
+export function visitorErrorMessage(kind: ProviderErrorKind, locale: Locale = "en"): string {
+  return chatApiMessages[locale][MESSAGE_KEYS[kind]];
+}

@@ -15,9 +15,26 @@ Every push triggers a build on Vercel; GitHub Actions (`ci.yml`) runs lint, type
 ## Vercel project settings
 
 - **Framework preset:** Next.js. **Build command:** default (`npm run build`). **Install:** default (`npm install`/`npm ci`).
-- **Node.js version:** 22.x or 24.x (`package.json` declares `"engines": { "node": ">=22" }`, required by AI SDK 7).
-- Function `maxDuration` for `/api/chat` is 30 s (set in the route).
+- **Node.js version:** **24.x**. `package.json` pins `"engines": { "node": "24.x" }`, which **overrides** the dashboard setting (a range like `>=22` would make Vercel ignore the dashboard and auto-upgrade to every new major). Set the dashboard to 24.x too so both agree and the build log has no warning. AI SDK 7 requires Node ≥ 22.
+- **Fluid Compute** is enabled in code (`vercel.json` → `"fluid": true`; projects created before April 2025 have it off by default). For an AI chat this matters: one instance serves several streaming requests concurrently, and you're billed for active CPU, not for the seconds spent waiting on OpenAI. `maxDuration` for `/api/chat` is 60 s (set in the route).
+- **Function region:** keep the default `iad1` (Washington). Each chat answer makes one or two round trips to OpenAI, whose API is in the US, so running next to it is faster than running next to the visitor. If you enable Upstash, create the Redis database in a US-East region too.
 - Enable **Web Analytics** and **Speed Insights** in the Vercel dashboard (the components are already in the layout; they're cookie-less).
+
+### Other Deployment Settings (dashboard)
+
+| Setting                                                             | Recommendation                                                                                                                                 |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fluid Compute                                                       | On (done via `vercel.json`)                                                                                                                    |
+| Node.js Version                                                     | 24.x                                                                                                                                           |
+| Skew Protection                                                     | Turn on if your plan offers it: after a deploy, open tabs keep talking to the matching server version (relevant for the contact Server Action) |
+| Prioritize Production Builds                                        | On if available — a production deploy shouldn't wait behind previews                                                                           |
+| On-Demand Concurrent Builds, Cold Start Prevention, bigger machines | Not needed for a personal site (paid features)                                                                                                 |
+| Deployment Protection                                               | Keep _Standard Protection_: Preview URLs require a Vercel login, Production stays public                                                       |
+
+### Build log notes
+
+- `npm warn deprecated eslint@9…` — ESLint 10 is out, but the plugins bundled in `eslint-config-next` (e.g. `eslint-plugin-react`) still declare ESLint 9 as their peer. Upgrade when they do (Dependabot will propose it). It only affects linting.
+- `npm warn install-scripts … not yet covered by allowScripts` — newer npm versions block dependency install scripts unless approved. `package.json → allowScripts` approves the two we use (`esbuild`, `unrs-resolver`, both dev tooling).
 
 ## Environment variables
 
@@ -66,12 +83,13 @@ Reuses the existing Formspree form. `FORMSPREE_ENDPOINT` is the form id. The Ser
 
 ## Troubleshooting
 
-| Symptom                                          | Likely cause → fix                                                                                                  |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| Chat says "not configured right now" (503)       | `OPENAI_API_KEY` missing in that environment → add it and redeploy                                                  |
-| Chat says "taking a break… AI budget is used up" | OpenAI balance is $0 or the project budget was hit (`chat.error kind:"quota"` in logs) → add credits / raise budget |
-| Chat says "temporarily unavailable"              | Invalid or revoked key (`kind:"auth"`) → new key, redeploy                                                          |
-| "Too many messages" (429)                        | Rate limit hit (per IP or global daily cap). Adjust in `src/lib/rate-limit.ts`                                      |
-| Contact form error                               | `FORMSPREE_ENDPOINT` missing/wrong, or Formspree quota reached                                                      |
-| Build fails on Vercel with Node errors           | Project Node.js version < 22 → set 22.x/24.x                                                                        |
-| Old content after editing `src/content`          | `/` and `/about` are ISR (daily); a new deployment refreshes them immediately                                       |
+| Symptom                                          | Likely cause → fix                                                                                                          |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Chat says "not configured right now" (503)       | `OPENAI_API_KEY` missing in that environment → add it and redeploy                                                          |
+| Chat says "taking a break… AI budget is used up" | OpenAI balance is $0 or the project budget was hit (`chat.error kind:"quota"` in logs) → add credits / raise budget         |
+| Chat says "temporarily unavailable"              | Invalid or revoked key (`kind:"auth"`) → new key, redeploy                                                                  |
+| "Too many messages" (429)                        | Rate limit hit (per IP or global daily cap). Adjust in `src/lib/rate-limit.ts`                                              |
+| Contact form error                               | `FORMSPREE_ENDPOINT` missing/wrong, or Formspree quota reached                                                              |
+| Build fails on Vercel with Node errors           | `engines.node` in `package.json` decides (24.x); make sure nothing overrides it                                             |
+| Wrong language on first visit                    | The proxy follows the browser's `Accept-Language`; the language switcher then stores the choice in the `NEXT_LOCALE` cookie |
+| Old content after editing `src/content`          | `/` and `/about` are ISR (daily); a new deployment refreshes them immediately                                               |

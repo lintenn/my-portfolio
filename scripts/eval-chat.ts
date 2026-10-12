@@ -43,7 +43,10 @@ async function judge(question: string, answer: string) {
 
 async function runCase(c: EvalCase) {
   const started = Date.now();
-  const result = await generateText({ ...assistantSettings({ userId: "eval" }), prompt: c.input });
+  const result = await generateText({
+    ...assistantSettings({ userId: "eval", locale: c.locale }),
+    prompt: c.input,
+  });
   const text = result.text;
   const tools = result.steps.flatMap((s) => s.toolCalls.map((t) => t.toolName));
   const failures: string[] = [];

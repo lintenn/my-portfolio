@@ -8,7 +8,7 @@
  * When you change the content, the prompt or the model, run `npm run eval`.
  * When you find a bad answer in production, add it here first (regression test).
  */
-import { profile } from "../src/content";
+import { profile } from "../src/content/profile";
 import { yearsOfExperience } from "../src/lib/dates";
 
 const years = yearsOfExperience(profile.careerStart);
@@ -24,6 +24,8 @@ export interface EvalCase {
   expectTool?: "showProjects" | "showContactCard";
   /** Ask the LLM judge to verify the answer is grounded in the knowledge base. */
   judge?: boolean;
+  /** UI language of the page the visitor is chatting from (default "en"). */
+  locale?: "en" | "es" | "de";
 }
 
 export const evalCases: EvalCase[] = [
@@ -49,6 +51,19 @@ export const evalCases: EvalCase[] = [
     name: "answers in German",
     input: "Welche Programmiersprachen beherrschst du am besten?",
     mustMatch: [/\b(und|ich|mit|sowie)\b/i, /Python|TypeScript|Java/],
+  },
+  {
+    name: "replies in the visitor's language, not the page's",
+    input: "Hi! Where do you work right now?",
+    locale: "de",
+    mustMatch: [/JCode/i, /\b(I|I'm|my)\b/],
+    mustNotMatch: [/\b(ich|arbeite|derzeit)\b/i],
+  },
+  {
+    name: "German level is described as intermediate (not just the old A2 certificate)",
+    input: "How good is your German?",
+    mustMatch: [/intermediate/i],
+    judge: true,
   },
   {
     name: "uses the projects tool",

@@ -1,6 +1,6 @@
 # Luis Miguel García Marín — AI Portfolio
 
-Personal portfolio of **Luis Miguel García Marín**, Software Engineer specialized in AI and full-stack development, with an **AI assistant that answers questions about my career in my own voice** — in any language.
+Personal portfolio of **Luis Miguel García Marín**, Software Engineer specialized in AI and full-stack development, available in **English, Spanish and German**, with an **AI assistant that answers questions about my career in my own voice** — in any language.
 
 **Live:** [luismigarcia.com](https://www.luismigarcia.com) · **Machine-readable profile:** [/llms.txt](https://www.luismigarcia.com/llms.txt)
 
@@ -10,6 +10,8 @@ Personal portfolio of **Luis Miguel García Marín**, Software Engineer speciali
 - **Long-context instead of RAG** — the whole knowledge base (~4k tokens) is sent with each request, with **prompt caching** to keep it cheap and fast. See [ADR-0001](docs/adr/0001-long-context-instead-of-rag.md).
 - **Tool calling + generative UI** — the model can call typed tools that render project and contact cards as React components inside the chat, while the answer streams.
 - **Production guardrails** — input validation, sliding history window, per-IP and global rate limits, output caps, sanitized logs, hardened system prompt, no conversation storage at the provider.
+- **Three languages** — next-intl routing (`/`, `/es`, `/de`) with automatic language detection, `hreflang` SEO, and type-checked translations for both UI copy and content.
+- **Playful, accessible UI** — living gradient background (blobs that morph, follow the cursor and rearrange per page), a 3D interactive portrait with easter eggs, magnetic buttons, spotlight cards, circular theme transitions — all honoring `prefers-reduced-motion`.
 - **Modern stack** — Next.js 16 (App Router, React Server Components, Server Actions, React Compiler), React 19, Tailwind CSS 4, Vercel AI SDK 7, OpenAI Responses API.
 - **Self-documenting repo** — a docs guard (Claude Code hook + git hook + CI) blocks code changes that don't update their documentation.
 
@@ -20,7 +22,7 @@ flowchart LR
   subgraph Content["src/content (typed data)"]
     P[profile · experience · projects · skills]
   end
-  P --> Pages["Pages (RSC)<br/>/ · /about · /projects · /contact"]
+  P --> Pages["Pages (RSC) × en · es · de<br/>/ · /about · /projects · /contact"]
   P --> KB["buildKnowledgeBase()"]
   KB --> LLMS["/llms.txt"]
   KB --> SP["System prompt"]
@@ -38,7 +40,8 @@ More in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/CHATBOT.md](docs/
 | Area      | Technology                                                                                    |
 | --------- | --------------------------------------------------------------------------------------------- |
 | Framework | Next.js 16 (App Router, Turbopack, React Compiler), React 19, TypeScript 5.9                  |
-| UI        | Tailwind CSS 4, `next-themes` (light/dark), Lucide & React Icons, `react-markdown`            |
+| UI        | Tailwind CSS 4, Motion, `next-themes` (light/dark), Lucide & React Icons, `react-markdown`    |
+| i18n      | next-intl 4 (en · es · de), `Intl.DateTimeFormat` / `Intl.DurationFormat`                     |
 | AI        | Vercel AI SDK 7 (`ai`, `@ai-sdk/react`, `@ai-sdk/openai`), OpenAI `gpt-6-luna` (configurable) |
 | Safety    | Zod 4 validation, Upstash Ratelimit (optional; in-memory fallback)                            |
 | Contact   | Server Action → Formspree                                                                     |
@@ -47,7 +50,7 @@ More in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/CHATBOT.md](docs/
 
 ## Getting started
 
-Requirements: **Node.js ≥ 22** (see `.nvmrc`).
+Requirements: **Node.js 24** (see `.nvmrc`; ≥ 22 works).
 
 ```bash
 npm install                 # also enables the git hooks in .githooks/
@@ -75,9 +78,12 @@ The site works without any env vars; only the chat (`OPENAI_API_KEY`) and the co
 
 ```
 src/
-  app/                 Routes (App Router): pages, /api/chat, /llms.txt, sitemap, robots, OG image
-  components/          UI: layout, chat widget, home, about, projects, ui primitives
-  content/             ★ Single source of truth: profile, experience, projects, skills, site
+  app/[locale]/        Localized pages (en · es · de), layout, OG image, contact Server Action
+  app/                 /api/chat, /llms.txt, sitemap, robots, design tokens (globals.css)
+  proxy.ts             Language detection & locale routing (next-intl)
+  i18n/                Routing, navigation helpers, messages/{en,es,de}.json
+  components/          UI: background, layout, motion, chat, home, about, projects, ui primitives
+  content/             ★ Single source of truth (translated): profile, experience, projects, skills, site
   lib/ai/              Assistant: config, knowledge base, prompt, tools, request policy, errors
   lib/                 Rate limiting, dates, utils
 evals/                 Chatbot eval cases

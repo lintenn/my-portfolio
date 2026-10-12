@@ -13,6 +13,7 @@
 7. [RAG: qué es, cómo era la v1 y por qué lo quitamos](#7-rag)
 8. [Long context y context stuffing](#8-long-context-y-context-stuffing)
 9. [Prompt caching](#9-prompt-caching)
+   - [9 bis. Un chatbot multilingüe sin romper la caché](#9-bis-un-chatbot-multilingüe-sin-romper-la-caché)
 10. [Tool calling (function calling)](#10-tool-calling)
 11. [Agentes y el bucle agéntico](#11-agentes-y-el-bucle-agéntico)
 12. [Generative UI](#12-generative-ui)
@@ -172,6 +173,24 @@ Técnicas que conviene conocer aunque no se usen aquí: _few-shot_ (dar ejemplos
 4. Se mide en los logs: `cachedInputTokens`.
 
 **En entrevista:** _"Diseño los prompts como 'prefijo estable + sufijo variable' para maximizar los cache hits; es una de las optimizaciones de coste/latencia más rentables."_
+
+---
+
+## 9 bis. Un chatbot multilingüe sin romper la caché
+
+**El problema.** La web está en inglés, español y alemán. ¿Hacemos tres bases de conocimiento, una por idioma? Si el prompt cambia según el idioma, tendríamos tres prefijos distintos → tres cachés frías, el triple de contenido que mantener y posibles incoherencias entre traducciones.
+
+**La solución aquí:**
+
+1. **Una sola base de conocimiento canónica en inglés.** Los LLM modernos son multilingües: leen en inglés y responden con naturalidad en español o alemán. Así el prefijo del prompt es idéntico para todos los visitantes y la caché se reutiliza siempre (hay un test que lo comprueba).
+2. **El idioma de la página va al final** del system prompt (`Site language: Spanish.`), en la parte variable, sin tocar el prefijo cacheado.
+3. **Regla de idioma**: responder en el idioma del último mensaje del visitante y, solo si es ambiguo ("ok"), usar el de la página. Un visitante en `/de` que escribe en inglés recibe inglés (hay una eval para eso).
+4. **Datos estructurados en el idioma de la UI**: las herramientas (`createChatTools(locale)`) devuelven tarjetas con los textos traducidos de verdad (escritos por mí, no traducidos por el modelo), y los errores de la API también llegan traducidos.
+5. **Enlaces sin prefijo de idioma**: el modelo escribe `/projects` y el componente `Link` de next-intl lo convierte en `/es/projects`. El modelo no necesita saber cómo funciona el routing.
+
+**Separación de responsabilidades:** el _contenido_ (hechos) se traduce una vez, a mano y revisado, en ficheros tipados; el _diálogo_ lo adapta el LLM en tiempo real. Traducir la web completa con un LLM en cada visita sería más lento, más caro, peor para SEO y sin control de calidad.
+
+**En entrevista:** _"Para i18n con LLMs separo contenido estático (traducido y revisado, servido por URL con hreflang) de la conversación (el modelo responde en el idioma del usuario). Mantengo un único prompt canónico para no fragmentar la caché y paso el idioma como dato variable al final."_
 
 ---
 

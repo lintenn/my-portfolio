@@ -3,18 +3,19 @@ import { openai, type OpenAILanguageModelResponsesOptions } from "@ai-sdk/openai
 import { isStepCount } from "ai";
 import { chatConfig } from "./config";
 import { buildSystemPrompt } from "./prompt";
-import { chatTools } from "./tools";
+import type { Locale } from "@/i18n/routing";
+import { createChatTools } from "./tools";
 
 /**
  * Everything that defines the assistant's behavior, in one place. Both the API
  * route (streaming, production) and the eval suite (`npm run eval`) use it, so
  * evals always test exactly what visitors get.
  */
-export function assistantSettings({ userId }: { userId?: string } = {}) {
+export function assistantSettings({ userId, locale = "en" }: { userId?: string; locale?: Locale } = {}) {
   return {
     model: openai(chatConfig.model),
-    instructions: buildSystemPrompt(),
-    tools: chatTools,
+    instructions: buildSystemPrompt({ locale }),
+    tools: createChatTools(locale),
     // Agent loop: model → tool call → tool result → model … at most `maxSteps` times.
     stopWhen: isStepCount(chatConfig.maxSteps),
     maxOutputTokens: chatConfig.maxOutputTokens,

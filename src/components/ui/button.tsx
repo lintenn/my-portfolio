@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { ComponentProps } from "react";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const base =
@@ -35,19 +35,17 @@ export function Button({ variant, size, className, type = "button", ...props }: 
   return <button type={type} className={cn(buttonVariants({ variant, size }), className)} {...props} />;
 }
 
-type ButtonLinkProps = ComponentProps<typeof Link> & { variant?: Variant; size?: Size };
+type ButtonLinkProps = Omit<ComponentProps<"a">, "href"> & { href: string; variant?: Variant; size?: Size };
 
-/** A Next.js `<Link>` styled as a button. External URLs open in a new tab. */
+/**
+ * A link styled as a button. Internal paths go through the locale-aware `<Link>`
+ * (/about → /es/about in Spanish); external URLs open in a new tab.
+ */
 export function ButtonLink({ variant, size, className, href, ...props }: ButtonLinkProps) {
-  const external = typeof href === "string" && /^(https?:|mailto:)/.test(href);
-  return (
-    <Link
-      href={href}
-      className={cn(buttonVariants({ variant, size }), className)}
-      {...(external && !String(href).startsWith("mailto:")
-        ? { target: "_blank", rel: "noopener noreferrer" }
-        : {})}
-      {...props}
-    />
-  );
+  const classes = cn(buttonVariants({ variant, size }), className);
+  if (href.startsWith("mailto:")) return <a href={href} className={classes} {...props} />;
+  if (/^https?:/.test(href)) {
+    return <a href={href} target="_blank" rel="noopener noreferrer" className={classes} {...props} />;
+  }
+  return <Link href={href} className={classes} {...props} />;
 }

@@ -4,6 +4,30 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+
+- **Three languages** (English, Spanish, German) with next-intl: localized routes (`/`, `/es`, `/de`), automatic detection from the browser's language plus a remembered choice, language switcher (dropdown on desktop, segmented control on mobile), `hreflang` alternates, localized metadata, Open Graph images, dates and durations. All content and UI copy translated; translations are type-checked and covered by tests.
+- The assistant is language-aware: the page language is sent with each message, tool cards and API errors come back in that language, and links keep the visitor's language. The cache-friendly prompt prefix stays identical for every language.
+- **Living background**: the 2024 gradient blob, reborn as three morphing blobs that rearrange per page, follow the cursor and scroll (parallax), a dot grid that lights up around the cursor, click ripples and film grain.
+- **New navbar** blending the 2024 and 2026 designs: animated gradient border in the old palette, sliding active pill, hover underline, compact-on-scroll, hide-on-scroll-down, scroll-progress line, animated mobile menu.
+- **Playful interactions**: 3D-tilting portrait with glow, bounce, emoji burst, fun facts and an easter egg; rotating role titles; waving hand; typewriter placeholder in the ask box; magnetic buttons; spotlight cards; count-up stats; scroll reveals; timeline that fills on scroll; two-row tech marquee; circular theme transition (View Transitions API); chat launcher with Luis's avatar and a one-time nudge; console greeting for developers. Everything respects `prefers-reduced-motion`.
+- Oleoh project images and link to the LinkedIn post.
+- `vercel.json` enabling Fluid Compute; ADR-0005 (i18n).
+
+### Changed
+
+- Projects are sorted automatically newest first (ongoing → end year → start year) instead of by array order.
+- German level described as intermediate instead of the old A2 certificate.
+- Home: "Skip the CV. Just ask." → "Curious about something? Just ask."
+- Chat header shows "Luis (AI)" / "Luis (IA)" / "Luis (KI)" with Luis's photo instead of "Luis's AI assistant".
+- Project carousels show images of any aspect ratio uncropped (blurred fill), support swipe and arrow keys.
+- Node.js pinned to 24.x (`engines`), so Vercel's project setting and `package.json` agree.
+- Chat route `maxDuration` 30 → 60 s.
+
+### Security
+
+- `overrides` forces a patched `postcss-selector-parser` (via `@tailwindcss/typography`). `allowScripts` explicitly approves the two dev-tool install scripts.
+
 ## [2.0.0] - 2026-10-12
 
 Complete rebuild: modern stack, new design, working AI assistant, updated career information and an automated documentation workflow.

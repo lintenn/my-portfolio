@@ -3,12 +3,14 @@
 
 /* Class-based dark mode, toggled by next-themes on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
+/* Only devices with a precise pointer (mouse/trackpad) get hover-driven effects. */
+@custom-variant pointer-fine (@media (hover: hover) and (pointer: fine));
 
 /* ── Design tokens ───────────────────────────────────────────────────────── */
 :root {
   --background: oklch(0.99 0.004 286);
   --foreground: oklch(0.21 0.02 285);
-  --card: oklch(1 0 0 / 0.75);
+  --card: oklch(1 0 0 / 0.72);
   --card-foreground: var(--foreground);
   --muted: oklch(0.96 0.008 286);
   --muted-foreground: oklch(0.5 0.02 285);
@@ -30,6 +32,17 @@
   --brand-text-2: oklch(0.52 0.23 275);
   --brand-text-3: oklch(0.58 0.16 235);
   --glow: oklch(0.7 0.18 285 / 0.18);
+
+  /* The 2024 navbar palette (purple-300 → indigo-300 → blue-300), kept as a signature. */
+  --legacy-1: oklch(0.83 0.11 306);
+  --legacy-2: oklch(0.79 0.1 276);
+  --legacy-3: oklch(0.81 0.1 252);
+  /* The 2024 background blob: pink → lavender → periwinkle. */
+  --blob-1: oklch(0.9 0.07 330 / 0.55);
+  --blob-2: oklch(0.88 0.07 290 / 0.5);
+  --blob-3: oklch(0.9 0.06 255 / 0.5);
+  --dots: color-mix(in oklch, var(--foreground) 10%, transparent);
+  --grain-opacity: 0.05;
 }
 
 .dark {
@@ -51,6 +64,16 @@
   --brand-text-2: oklch(0.72 0.17 278);
   --brand-text-3: oklch(0.8 0.12 230);
   --glow: oklch(0.6 0.2 285 / 0.22);
+
+  /* purple-700 → indigo-800 → blue-900, like the 2024 dark navbar */
+  --legacy-1: oklch(0.5 0.24 303);
+  --legacy-2: oklch(0.4 0.18 277);
+  --legacy-3: oklch(0.38 0.14 266);
+  --blob-1: oklch(0.45 0.2 320 / 0.35);
+  --blob-2: oklch(0.42 0.19 285 / 0.35);
+  --blob-3: oklch(0.45 0.15 250 / 0.3);
+  --dots: color-mix(in oklch, var(--foreground) 8%, transparent);
+  --grain-opacity: 0.07;
 }
 
 @theme inline {
@@ -75,9 +98,14 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-marquee-reverse: marquee 50s linear infinite reverse;
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-blink: blink 1s step-end infinite;
+  --animate-wave: wave 2.4s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 8s linear infinite;
+  --animate-ripple: ripple 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-heartbeat: heartbeat 1s ease-in-out infinite;
 
   @keyframes marquee {
     to {
@@ -90,9 +118,55 @@
       transform: translateY(12px);
     }
   }
-  @keyframes blink {
+  @keyframes wave {
+    0%,
+    60%,
+    100% {
+      transform: rotate(0deg);
+    }
+    10%,
+    30% {
+      transform: rotate(14deg);
+    }
+    20% {
+      transform: rotate(-8deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
     50% {
+      transform: rotate(10deg);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+  @keyframes ripple {
+    from {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.7;
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1);
       opacity: 0;
+    }
+  }
+  @keyframes heartbeat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.25);
+    }
+    40% {
+      transform: scale(0.95);
     }
   }
 }
@@ -104,7 +178,7 @@
   }
   html {
     color-scheme: light;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
   }
   html.dark {
     color-scheme: dark;
@@ -138,14 +212,74 @@
   background-image: linear-gradient(100deg, var(--brand-1), var(--brand-2) 45%, var(--brand-3));
 }
 
-/* Subtle dotted grid + glow used as the page backdrop. */
-@utility bg-backdrop {
-  background-image:
-    radial-gradient(60rem 30rem at 50% -10%, var(--glow), transparent 70%),
-    radial-gradient(color-mix(in oklch, var(--foreground) 9%, transparent) 1px, transparent 1px);
-  background-size:
-    100% 100%,
-    22px 22px;
+/* The 2024 navbar gradient, reused as an accent (active nav pill, scroll progress). */
+@utility bg-legacy-gradient {
+  background-image: linear-gradient(90deg, var(--legacy-1), var(--legacy-2), var(--legacy-3));
+}
+
+/* Animated gradient border: a slowly rotating conic gradient behind a 1px gap. */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@utility gradient-border {
+  background: conic-gradient(
+    from var(--border-angle),
+    var(--legacy-1),
+    var(--legacy-2),
+    var(--legacy-3),
+    var(--brand-1),
+    var(--legacy-1)
+  );
+  animation: border-spin 10s linear infinite;
+}
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(var(--dots) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Film grain: gives flat gradients a tactile, printed feel. */
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: var(--grain-opacity);
+}
+
+/* Organic blob that slowly changes shape (a living version of the 2024 background). */
+@utility blob {
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  animation: blob-morph 18s ease-in-out infinite alternate;
+}
+@keyframes blob-morph {
+  0% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    rotate: 0deg;
+  }
+  33% {
+    border-radius: 70% 30% 46% 54% / 30% 39% 61% 70%;
+  }
+  66% {
+    border-radius: 28% 72% 35% 65% / 62% 33% 67% 38%;
+  }
+  100% {
+    border-radius: 55% 45% 60% 40% / 40% 60% 40% 60%;
+    rotate: 25deg;
+  }
+}
+
+/* Cursor-following highlight for cards (driven by --x / --y set from JS). */
+@utility spotlight {
+  background-image: radial-gradient(
+    22rem circle at var(--x, 50%) var(--y, 50%),
+    color-mix(in oklch, var(--brand-2) 14%, transparent),
+    transparent 60%
+  );
 }
 
 /* Decorative cover for projects without screenshots. */
@@ -164,6 +298,35 @@
 
 @utility mask-fade-x {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Hover underline that grows from the right and leaves to the left (from the 2024 navbar). */
+@utility underline-grow {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    bottom: 0.3rem;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s ease-out;
+  }
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ── Theme switch: circular reveal (View Transitions API) ────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 @media (prefers-reduced-motion: reduce) {

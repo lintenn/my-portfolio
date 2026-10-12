@@ -5,15 +5,6 @@ export function Container({ className, ...props }: ComponentProps<"div">) {
   return <div className={cn("mx-auto w-full max-w-6xl px-4 sm:px-6", className)} {...props} />;
 }
 
-export function Card({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div
-      className={cn("rounded-2xl border bg-card text-card-foreground shadow-sm backdrop-blur-sm", className)}
-      {...props}
-    />
-  );
-}
-
 export function Badge({ className, ...props }: ComponentProps<"span">) {
   return (
     <span

@@ -61,7 +61,7 @@ Personal overrides go in `.claude/settings.local.json` (git-ignored).
 
 ## Testing
 
-- **Unit tests** (Vitest, `src/**/*.test.ts`): dates, request policy, rate limiter, error classification, knowledge base determinism/coverage, tools.
+- **Unit tests** (Vitest, `src/**/*.test.ts`): dates (per locale), request policy, rate limiter, error classification, knowledge base determinism/coverage, cache-friendly prompt prefix across languages, localized tools, translation key parity (en/es/de), content resolution and project ordering.
 - **Evals** (`npm run eval`): LLM behavior against the real model — see [CHATBOT.md](CHATBOT.md#evals).
 - **Manual/E2E**: `npm run build && npm start`, then check pages in light/dark and mobile. For chat E2E without credits, use a mock OpenAI server via `OPENAI_BASE_URL` (see CHATBOT.md).
 
@@ -74,6 +74,23 @@ Personal overrides go in `.claude/settings.local.json` (git-ignored).
 - Accessibility: semantic HTML, labels for inputs, `aria-*` on icon buttons, focus-visible styles, respects `prefers-reduced-motion`.
 - Comments explain _why_. Keep functions small and data-driven.
 
+## Internationalization
+
+- UI strings: `src/i18n/messages/{en,es,de}.json` (add the key to all three; a test checks parity). Facts: `src/content` with `{ en, es, de }` objects. See [CONTENT.md](CONTENT.md).
+- Always import `Link`, `useRouter`, `usePathname` from `@/i18n/navigation` (they add the `/es`, `/de` prefix), never from `next/link` / `next/navigation`.
+- Server code: `getTranslations({ locale, namespace })`; pages get the locale with `localeFromParams(params)` and spread `localizedMetadata(path, locale)` into their metadata.
+- Format dates and durations with the helpers in `src/lib/dates.ts` (they use `Intl` with the locale).
+
+## Motion & interaction
+
+- Use `motion/react` for springs, layout animations and gestures; CSS for simple loops. Everything must survive `prefers-reduced-motion` (handled globally by `MotionProvider` and the CSS rule) — never encode information only in motion.
+- Hover-only effects: use the `pointer-fine:` Tailwind variant or check `e.pointerType === "mouse"`, so touch devices don't get stuck states.
+- Clickable toys (portrait, background ripples) must stay accessible: real `<button>`s with labels; mark decorative interactive areas with `data-no-ripple` where ripples would be noise.
+
 ## Dependency upgrades
 
-Minor/patch updates arrive via Dependabot. Major upgrades are deliberate: read the migration guide, upgrade one family at a time (e.g. `ai` + `@ai-sdk/*` together), run `npm run check && npm run build`, run the evals for AI SDK/model changes, and record it in the CHANGELOG (and an ADR if it changes the architecture).
+Minor/patch updates arrive via Dependabot.
+
+**Security advisories.** `npm audit` runs in your head before a release: never apply `npm audit fix --force` blindly (it often proposes downgrades). Prefer `overrides` in `package.json` to force a patched transitive version (current: `postcss-selector-parser` under `@tailwindcss/typography`). Known accepted risk: `braces` (via `eslint-config-next` → `fast-glob`) has no patched release yet; it's dev-only and only processes our own file globs.
+
+**Install scripts.** npm blocks dependency install scripts unless listed in `package.json → allowScripts`. Review a package before adding it there. Major upgrades are deliberate: read the migration guide, upgrade one family at a time (e.g. `ai` + `@ai-sdk/*` together), run `npm run check && npm run build`, run the evals for AI SDK/model changes, and record it in the CHANGELOG (and an ADR if it changes the architecture).

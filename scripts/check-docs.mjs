@@ -35,9 +35,9 @@ export const RULES = [
     why: "developer tooling changed",
   },
   {
-    when: /^(src\/content\/types\.ts|src\/app\/[^/]+\/?$|src\/app\/[^/]+\/page\.tsx$)/,
+    when: /^(src\/content\/(types|index)\.ts|src\/i18n\/[^/]+\.ts$|src\/proxy\.ts|src\/app\/\[locale\]\/([^/]+\/)?page\.tsx$)/,
     docs: ["docs/ARCHITECTURE.md", "docs/CONTENT.md"],
-    why: "content model or routes changed",
+    why: "content model, i18n or routes changed",
   },
   {
     when: /^package\.json$/,

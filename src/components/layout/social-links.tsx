@@ -1,7 +1,7 @@
 import { Mail } from "lucide-react";
-import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
-import { profile } from "@/content";
+import { SiGithub } from "react-icons/si";
+import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
 
 export const socialItems = [
@@ -20,7 +20,7 @@ export function SocialLinks({ className }: { className?: string }) {
             {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             aria-label={label}
             title={label}
-            className="grid size-10 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="grid size-10 place-items-center rounded-full text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground active:scale-90"
           >
             <Icon className="size-5" />
           </a>
