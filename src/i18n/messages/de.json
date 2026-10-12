@@ -38,13 +38,7 @@
   },
   "Home": {
     "greeting": "Hallo, ich bin",
-    "roles": [
-      "Softwareentwickler",
-      "KI-Ingenieur",
-      "Full-Stack-Entwickler",
-      "Computer-Vision-Tüftler",
-      "Salsatänzer 💃"
-    ],
+    "roles": ["Softwareentwickler", "KI-Ingenieur", "Full-Stack-Entwickler", "Computer-Vision-Tüftler"],
     "photoAlt": "Porträt von {name}",
     "photoHint": "Psst… klick mich!",
     "easterEgg": "Okay, okay, du hast mich erwischt 😄 Lieber mit meiner KI-Version plaudern?",

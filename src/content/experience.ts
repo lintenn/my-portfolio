@@ -4,6 +4,7 @@ import type { Award, Certification, Education, Experience } from "./types";
 export const experience: Experience[] = [
   {
     company: "JCode Technologies",
+    companyUrl: "https://jcodetechnologies.com",
     role: { en: "Software Engineer", es: "Ingeniero de Software", de: "Softwareentwickler" },
     location: { en: "Málaga, Spain", es: "Málaga, España", de: "Málaga, Spanien" },
     workMode: "remote",

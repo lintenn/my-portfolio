@@ -38,13 +38,7 @@
   },
   "Home": {
     "greeting": "Hi, I'm",
-    "roles": [
-      "Software Engineer",
-      "AI Engineer",
-      "Full-Stack Developer",
-      "Computer Vision tinkerer",
-      "Salsa dancer 💃"
-    ],
+    "roles": ["Software Engineer", "AI Engineer", "Full-Stack Developer", "Computer Vision tinkerer"],
     "photoAlt": "Portrait of {name}",
     "photoHint": "Psst… click me!",
     "easterEgg": "Okay, okay, you found me 😄 Want to chat with my AI version instead?",

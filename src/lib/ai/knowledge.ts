@@ -51,6 +51,7 @@ export function buildKnowledgeBase(now: Date = new Date()): string {
       "",
       job.summary,
       "",
+      ...(job.companyUrl ? [`Company website: ${job.companyUrl}`, ""] : []),
       ...job.highlights.map((h) => `- ${h}`),
       "",
       `Stack: ${job.stack.join(", ")}`,

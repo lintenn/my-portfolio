@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-10-12
+
 ### Added
 
 - **Three languages** (English, Spanish, German) with next-intl: localized routes (`/`, `/es`, `/de`), automatic detection from the browser's language plus a remembered choice, language switcher (dropdown on desktop, segmented control on mobile), `hreflang` alternates, localized metadata, Open Graph images, dates and durations. All content and UI copy translated; translations are type-checked and covered by tests.
@@ -12,12 +14,14 @@ All notable changes to this project are documented here. The format follows [Kee
 - **New navbar** blending the 2024 and 2026 designs: animated gradient border in the old palette, sliding active pill, hover underline, compact-on-scroll, hide-on-scroll-down, scroll-progress line, animated mobile menu.
 - **Playful interactions**: 3D-tilting portrait with glow, bounce, emoji burst, fun facts and an easter egg; rotating role titles; waving hand; typewriter placeholder in the ask box; magnetic buttons; spotlight cards; count-up stats; scroll reveals; timeline that fills on scroll; two-row tech marquee; circular theme transition (View Transitions API); chat launcher with Luis's avatar and a one-time nudge; console greeting for developers. Everything respects `prefers-reduced-motion`.
 - Oleoh project images and link to the LinkedIn post.
+- Link to the JCode Technologies website in the experience timeline and in the assistant's knowledge base.
 - `vercel.json` enabling Fluid Compute; ADR-0005 (i18n).
 
 ### Changed
 
 - Projects are sorted automatically newest first (ongoing → end year → start year) instead of by array order.
 - German level described as intermediate instead of the old A2 certificate.
+- The rotating role titles in the hero no longer include "Salsa dancer".
 - Home: "Skip the CV. Just ask." → "Curious about something? Just ask."
 - Chat header shows "Luis (AI)" / "Luis (IA)" / "Luis (KI)" with Luis's photo instead of "Luis's AI assistant".
 - Project carousels show images of any aspect ratio uncropped (blurred fill), support swipe and arrow keys.
