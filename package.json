@@ -23,8 +23,8 @@
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^4.0.91",
-    "@ai-sdk/react": "^4.0.140",
+    "@ai-sdk/openai": "^4.0.95",
+    "@ai-sdk/react": "^4.0.146",
     "@upstash/ratelimit": "^2.2.0",
     "@upstash/redis": "^1.39.0",
     "@vercel/analytics": "^2.0.1",
